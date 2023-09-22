@@ -3,7 +3,7 @@ import { getLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 function checkCart(localStorageKey){
-  console.log(getLocalStorage(localStorageKey));
+  //It checks whether or not there's a key already created or not, if it's the first time the user visits the site or they key has been erased for any reason this will prevent the addProductToCart function from breaking. 
   if (getLocalStorage(localStorageKey) === null){
   return false;
   } else {
