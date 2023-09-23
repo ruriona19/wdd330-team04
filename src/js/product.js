@@ -1,8 +1,11 @@
 import { setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
+let products = [];
+
 function addProductToCart(product) {
-  setLocalStorage("so-cart", product);
+  products.push(product);
+  setLocalStorage("so-cart", products);
 }
 // add to cart button event handler
 async function addToCartHandler(e) {
