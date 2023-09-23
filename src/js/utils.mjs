@@ -21,3 +21,13 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+/**
+ * Returns true if the local storage object that contains the
+ * data related to the Key passes as a parameter is empty
+ * @param {String} localStorageKey The name of the localStorage key.
+ * @return {Boolean} A boolean flag to determine wheter the local storage object is empty or not.
+ */
+export function isLocalStorageObjectEmpty(localStorageKey) {
+  return (getLocalStorage(localStorageKey) === null) ? true : false;
+}
