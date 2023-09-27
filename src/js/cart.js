@@ -1,11 +1,16 @@
 import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
+  let productContainer = document.querySelector(".products");
+  let productList = document.querySelector(".product-list");
   try {
-    const cartItems = getLocalStorage("so-cart") || [];
-
-    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+    const cartItems = getLocalStorage("so-cart");
+    if (cartItems == null) {
+      productContainer.innerHTML = renderEmptyMessage();
+    } else {
+      const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+      productList.innerHTML = htmlItems.join("");
+    }
   } catch (error) {
     alert(error.message);
   }
@@ -28,6 +33,16 @@ function cartItemTemplate(item) {
 </li>`;
 
   return newItem;
+}
+
+function renderEmptyMessage() {
+  const noItemsMessage = `
+  <h3>Looks like your cart is empty!<h3>
+<a href="../index.html">
+    <h2 class="card__name">Order Now</h2>
+  </a>`;
+
+  return noItemsMessage;
 }
 
 renderCartContents();
