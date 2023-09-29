@@ -1,13 +1,14 @@
 import { getLocalStorage } from "./utils.mjs";
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart") || [];
-  if (!Array.isArray(cartItems)) {
-    console.error("Invalid cart data:", cartItems);
-    return;
+  try {
+    const cartItems = getLocalStorage("so-cart") || [];
+
+    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  } catch (error) {
+    alert(error.message);
   }
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
 function cartItemTemplate(item) {
