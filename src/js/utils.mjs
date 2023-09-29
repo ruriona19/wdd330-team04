@@ -28,3 +28,10 @@ export function getParam(param) {
   const product = urlParams.get(param);
   return product;
   }
+
+//function for loading the items in cart count
+export function getCartCount(items) {
+  if (Array.isArray(items)) {
+    return items.length
+  }
+}
