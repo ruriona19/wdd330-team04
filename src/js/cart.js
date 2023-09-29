@@ -10,10 +10,26 @@ function renderCartContents() {
     } else {
       const htmlItems = cartItems.map((item) => cartItemTemplate(item));
       productList.innerHTML = htmlItems.join("");
+      calculateTotal(cartItems);
     }
   } catch (error) {
     alert(error.message);
   }
+}
+
+function calculateTotal(products) {
+  // display total in cart page
+  let totalCartBox = document.querySelector(".cart-total-box");
+  totalCartBox.style.display = "block";
+
+  let cartTotal = document.querySelector(".cart-total");
+
+  let total = 0;
+  products.forEach((element) => {
+    total += element.FinalPrice;
+  });
+
+  cartTotal.textContent = `Total: $ ${total}`;
 }
 
 function cartItemTemplate(item) {
