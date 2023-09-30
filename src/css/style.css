@@ -202,6 +202,17 @@ button {
   grid-column: 3;
 }
 
+/* Style Cart Total*/
+.cart-total-box {
+  display: none;
+}
+
+.cart-total {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
