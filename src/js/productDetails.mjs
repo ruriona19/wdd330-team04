@@ -1,6 +1,7 @@
 import { findProductById } from "./productData.mjs";
-import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, getCartCountFromLocalStorage } from "./utils.mjs";
 
+let cartCount = getCartCountFromLocalStorage();
 
 export default  async function productDetails(productId) {
     const productInformation = await findProductById(productId);
@@ -11,9 +12,28 @@ export default  async function productDetails(productId) {
 
 //add to cart button event handler
 async function addToCartHandler(e) {
+    cartCount++;
     const product = await findProductById(e.target.dataset.id);
+    const backpackBadge = document.getElementById("cart-count");
+
     addProductToCart(product);
-  }
+
+    // Add Cart Button animated
+    this.innerHTML = "Adding, please wait";
+
+    setTimeout(() => {
+      this.innerHTML = "Added To Cart!";
+    }, 2500);
+
+    setTimeout(() => {
+      this.innerHTML = "Add to Cart";
+    }, 5000);
+
+    // render incremented cart count after 500ms
+    setTimeout((e) => {
+      backpackBadge.innerHTML = cartCount;
+    }, 500);
+}
  
 
 function addProductToCart(product) {

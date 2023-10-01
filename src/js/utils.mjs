@@ -28,3 +28,11 @@ export function getParam(param) {
   const product = urlParams.get(param);
   return product;
   }
+
+//function for loading the items in cart count
+export function getCartCountFromLocalStorage() {
+  const cartItems = getLocalStorage('so-cart') || [];
+  if (Array.isArray(cartItems)) {
+    return cartItems.length
+  }
+}
