@@ -1,5 +1,5 @@
-import { getCartCount } from "./utils.mjs";
-import { getLocalStorage } from "./utils.mjs";
+import { getCartCount } from './utils.mjs';
+import { getLocalStorage } from './utils.mjs';
 const cartItems = getLocalStorage('so-cart') || [];
 //update the cart count 
 function updateCartCount(count) {
@@ -9,4 +9,10 @@ function updateCartCount(count) {
 
 updateCartCount(getCartCount(cartItems))
 //trying to make it more dynamic by using a window event listener
-window.addEventListener('storage', updateCartCount);
+function handleAddToCartClick() {
+    const updatedCartCount = getCartCount(cartItems) + 1;
+    updateCartCount(updatedCartCount);
+}
+
+// Add event listener to the "Add to Cart" button
+document.querySelector('#addToCart').addEventListener('click', handleAddToCartClick);
