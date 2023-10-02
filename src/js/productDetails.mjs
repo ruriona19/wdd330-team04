@@ -23,16 +23,15 @@ async function addToCartHandler(e) {
 
     setTimeout(() => {
       this.innerHTML = "Added To Cart!";
+      backpackBadge.innerHTML = cartCount;
+      backpackBadge.style.fontSize = "20px";
     }, 2500);
 
     setTimeout(() => {
       this.innerHTML = "Add to Cart";
+      backpackBadge.style.fontSize = "10px";
     }, 5000);
-
-    // render incremented cart count after 500ms
-    setTimeout((e) => {
-      backpackBadge.innerHTML = cartCount;
-    }, 500);
+    
 }
  
 
