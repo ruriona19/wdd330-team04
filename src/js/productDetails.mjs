@@ -1,5 +1,7 @@
 import { findProductById } from "./productData.mjs";
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { updateCartCount } from "./utils.mjs";
+
 
 
 export default  async function productDetails(productId) {
@@ -13,6 +15,7 @@ export default  async function productDetails(productId) {
 async function addToCartHandler(e) {
     const product = await findProductById(e.target.dataset.id);
     addProductToCart(product);
+    updateCartCount();
   }
  
 
@@ -50,4 +53,8 @@ function renderProductDetails(object) {
     document.querySelector("#productDescriptionHtmlSimple").innerHTML = description;
     document.querySelector("#addToCart").setAttribute("data-id", id);
 }
+
+
+
+
 

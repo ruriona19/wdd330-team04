@@ -1,4 +1,5 @@
 import { getLocalStorage } from "./utils.mjs";
+import { updateCartCount } from "./utils.mjs";
 
 function renderCartContents() {
   let productContainer = document.querySelector(".products");
@@ -62,3 +63,4 @@ function renderEmptyMessage() {
 }
 
 renderCartContents();
+updateCartCount();

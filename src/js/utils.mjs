@@ -48,4 +48,11 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   }
   const htmlStrings =  list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+
+}
+
+//update the cart count
+export function updateCartCount() {
+  const cartCount = document.getElementById("cart-count");
+  cartCount.textContent = getCartCount(getLocalStorage("so-cart") || []);
 }
