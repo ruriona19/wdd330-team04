@@ -8,7 +8,7 @@ function updateCartCount(count) {
 }
 
 updateCartCount(getCartCount(cartItems))
-//trying to make it more dynamic by using a window event listener
+//trying to make it more dynamic by using a handle addtocartclick so it can update without refresh
 function handleAddToCartClick() {
     const updatedCartCount = getCartCount(cartItems) + 1;
     updateCartCount(updatedCartCount);
