@@ -85,12 +85,13 @@ button {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
+  display: flex;
   margin: auto;
-  display: block;
   border: 0;
   font-size: var(--large-font);
   cursor: pointer;
 }
+
 .divider {
   border-bottom: 2px solid var(--primary-color);
 }
@@ -109,17 +110,18 @@ button {
 .cart:hover svg {
   fill: gray;
 }
+
 #cart-count {
   position: absolute;
   top: 5px;
   right: 0;
-  background-color: rgb(240, 128, 23);
-  color:  rgb(20, 20, 20);
-  font-weight: bold;
+  background-color: red;
+  color: white;
   border-radius: 50%;
   padding: 3px 6px;
   font-size: 10px;
 }
+
 /* End cart icon styles */
 
 .mission {

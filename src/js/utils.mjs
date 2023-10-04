@@ -30,8 +30,10 @@ export function getParam(param) {
   }
 
 //function for loading the items in cart count
-export function getCartCount(items) {
-  if (Array.isArray(items)) {
-    return items.length
+export function getCartCountFromLocalStorage() {
+  const cartItems = getLocalStorage('so-cart') || [];
+  if (Array.isArray(cartItems)) {
+    return cartItems.length
   }
 }
+

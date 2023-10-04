@@ -1,18 +1,6 @@
-import { getCartCount } from './utils.mjs';
-import { getLocalStorage } from './utils.mjs';
-const cartItems = getLocalStorage('so-cart') || [];
-//update the cart count 
-function updateCartCount(count) {
-    const cartCount = document.getElementById('cart-count');
-    cartCount.textContent = count;
-}
+import { getCartCountFromLocalStorage } from "./utils.mjs";
 
-updateCartCount(getCartCount(cartItems))
-//trying to make it more dynamic by using a handle addtocartclick so it can update without refresh
-function handleAddToCartClick() {
-    const updatedCartCount = getCartCount(cartItems) + 1;
-    updateCartCount(updatedCartCount);
-}
+const backpackBadge = document.getElementById("cart-count");
 
-// Add event listener to the "Add to Cart" button
-document.querySelector('#addToCart').addEventListener('click', handleAddToCartClick);
+backpackBadge.innerHTML = getCartCountFromLocalStorage();
+
