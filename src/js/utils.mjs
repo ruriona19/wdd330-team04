@@ -36,3 +36,4 @@ export function getCartCountFromLocalStorage() {
     return cartItems.length
   }
 }
+
