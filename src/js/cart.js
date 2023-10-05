@@ -1,4 +1,7 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, getCartCountFromLocalStorage } from "./utils.mjs";
+
+const backpackBadge = document.getElementById("cart-count");
+let cartItemsCount = getCartCountFromLocalStorage();
 
 function renderCartContents() {
   let productContainer = document.querySelector(".products");
@@ -54,11 +57,13 @@ function cartItemTemplate(item) {
 function renderEmptyMessage() {
   const noItemsMessage = `
   <h3>Looks like your cart is empty!<h3>
-<a href="../index.html">
+  <a href="../index.html">
     <h2 class="card__name">Order Now</h2>
   </a>`;
 
   return noItemsMessage;
 }
+
+backpackBadge.innerHTML = cartItemsCount;
 
 renderCartContents();
