@@ -37,3 +37,16 @@ export function getCartCountFromLocalStorage() {
   }
 }
 
+
+export function renderList(list, el) {
+  const htmlStrings =  list.map(productCardTemplate);
+  el.insertAdjacentHTML('afterbegin', htmlStrings.join(''));
+}
+
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true){
+  if (clear == true){
+    parentElement.innerHTML = "";
+  }
+  const htmlStrings =  list.map(templateFn);
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+}
