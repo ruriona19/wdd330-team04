@@ -185,10 +185,12 @@ button {
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+  max-width: 600px;
+  gap: 5px;
 }
 
 .cart-card__image {
-  grid-row: 1/3;
+  grid-row: 1/4;
   grid-column: 1;
 }
 .cart-card p {
@@ -205,13 +207,19 @@ button {
 }
 
 .cart-card__quantity {
-  grid-row: 1;
-  grid-column: 3;
+  grid-row: 3;
+  grid-column: 2;
 }
 
 .cart-card__price {
-  grid-row: 2;
+  grid-row: 3;
   grid-column: 3;
+}
+
+#closeBtn {
+  grid-row: 1;
+  grid-column: 3;
+  padding: 0.5rem 1rem;
 }
 
 /* Style Cart Total*/

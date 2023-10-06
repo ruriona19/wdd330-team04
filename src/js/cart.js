@@ -1,4 +1,8 @@
-import { getLocalStorage, getCartCountFromLocalStorage } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  getCartCountFromLocalStorage,
+} from "./utils.mjs";
 
 const backpackBadge = document.getElementById("cart-count");
 let cartItemsCount = getCartCountFromLocalStorage();
@@ -8,12 +12,13 @@ function renderCartContents() {
   let productList = document.querySelector(".product-list");
   try {
     const cartItems = getLocalStorage("so-cart");
-    if (cartItems == null) {
+    if (cartItems == null || cartItems.length === 0) {
       productContainer.innerHTML = renderEmptyMessage();
     } else {
       const htmlItems = cartItems.map((item) => cartItemTemplate(item));
       productList.innerHTML = htmlItems.join("");
       calculateTotal(cartItems);
+      addRemoveFunctionality();
     }
   } catch (error) {
     alert(error.message);
@@ -46,12 +51,35 @@ function cartItemTemplate(item) {
   <a href="#">
     <h2 class="card__name">${item.Name}</h2>
   </a>
+  <button id="closeBtn" data-id="${item.Id}"><span class="remove-x">X</span></button>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
   return newItem;
+}
+
+function addRemoveFunctionality() {
+  const closeButtons = document.querySelectorAll("#closeBtn");
+
+  closeButtons.forEach((btn) => {
+    btn.addEventListener("click", removeItem);
+  });
+}
+
+// Get current cart, remove corresponding item, update new cart and cart icon
+function removeItem() {
+  let cartItems = getLocalStorage("so-cart");
+  let toRemove = this.dataset.id;
+
+  let newCart = cartItems.filter((item) => item.Id != toRemove);
+
+  setLocalStorage("so-cart", newCart);
+
+  renderCartContents();
+  cartItemsCount = getCartCountFromLocalStorage();
+  backpackBadge.innerHTML = cartItemsCount;
 }
 
 function renderEmptyMessage() {
