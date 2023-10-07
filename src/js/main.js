@@ -1,6 +1,6 @@
 import { getCartCountFromLocalStorage } from "./utils.mjs";
 import productList from "./productList.mjs";
-import Alert from './alert.js';
+import Alert from "./alert.js";
 
 const backpackBadge = document.getElementById("cart-count");
 backpackBadge.innerHTML = getCartCountFromLocalStorage();
