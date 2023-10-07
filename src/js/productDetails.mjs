@@ -3,11 +3,17 @@ import { setLocalStorage, getLocalStorage, getCartCountFromLocalStorage } from "
 
 let cartCount = getCartCountFromLocalStorage();
 
+const addButton = document.querySelector("#addToCart");
+
 export default  async function productDetails(productId) {
     const productInformation = await findProductById(productId);
+    if (productInformation == undefined) {
+      renderNotFoundMessage();
+      addButton.remove();
+    } else {
     renderProductDetails(productInformation);
-
-    document.querySelector("#addToCart").addEventListener("click", addToCartHandler);
+    addButton.addEventListener("click", addToCartHandler);
+    }
 }
 
 //add to cart button event handler
@@ -68,5 +74,16 @@ function renderProductDetails(object) {
     document.querySelector("#productColorName").textContent = color;
     document.querySelector("#productDescriptionHtmlSimple").innerHTML = description;
     document.querySelector("#addToCart").setAttribute("data-id", id);
+}
+
+function renderNotFoundMessage(){
+  const productDetail = document.querySelector(".product-detail");
+  productDetail.insertAdjacentHTML( "afterbegin", `<h2>Product not found</h2>
+  <p>We're sorry for the inconvenience! We always work hard to give you 
+  the best catalog, unfortunately, right now this product is not available 
+  to order, please check back again later to see if the product is 
+  back or try a different name...</p>
+  <a href="../index.html">Click here to see other products</a>`);
+
 }
 
