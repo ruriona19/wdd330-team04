@@ -62,7 +62,8 @@ function renderProductDetails(object) {
     const name = object.Name;
     const nameWithoutBrand = object.NameWithoutBrand;
     const image = object.Image;
-    const price = object.FinalPrice;
+    const price = "$" + object.FinalPrice;
+    const retailPrice = "$" + object.SuggestedRetailPrice;
     const color = object.Colors.ColorName;
     const description = object.DescriptionHtmlSimple;
 
@@ -71,6 +72,7 @@ function renderProductDetails(object) {
     document.querySelector("#productImage").setAttribute("src", image);
     document.querySelector("#productImage").setAttribute("alt",name);
     document.querySelector("#productFinalPrice").textContent = price;
+    document.querySelector("#suggestedRetailPrice").textContent = retailPrice;
     document.querySelector("#productColorName").textContent = color;
     document.querySelector("#productDescriptionHtmlSimple").innerHTML = description;
     document.querySelector("#addToCart").setAttribute("data-id", id);
