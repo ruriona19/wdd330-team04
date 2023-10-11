@@ -1,7 +1,5 @@
-import { getCartCountFromLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
 import productList from "./productList.mjs";
 
-const backpackBadge = document.getElementById("cart-count");
-backpackBadge.innerHTML = getCartCountFromLocalStorage();
-
+loadHeaderFooter();
 productList("tents", document.querySelector(".product-list"));
