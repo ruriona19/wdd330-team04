@@ -33,7 +33,8 @@ export function getParam(param) {
 export function getCartCountFromLocalStorage() {
   const cartItems = getLocalStorage('so-cart') || [];
   if (Array.isArray(cartItems)) {
-    return cartItems.length
+    const backpackBadge = document.getElementById("cart-count");
+    return backpackBadge.innerHTML = cartItems.length;
   }
 }
 
@@ -49,4 +50,38 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   }
   const htmlStrings =  list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+}
+
+export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear = true){
+  if (clear == true){
+    parentElement.innerHTML = "";
+  }
+  let template = await templateFn(data);
+  parentElement.insertAdjacentHTML(position, template);
+  getCartCountFromLocalStorage()
+}
+
+function loadTemplate(path){
+  return async function () {
+    const res = await fetch(path);
+    
+    if (res.ok) {
+    const html = await res.text();
+    return html;
+    }
+  };
+}
+
+export function loadHeaderFooter(){
+
+  const headerTemplateFn = loadTemplate("../partials/header.html");
+  const footerTemplateFn = loadTemplate("../partials/footer.html");
+
+  let header = document.querySelector("#main-header");
+
+  let footer = document.querySelector("#main-footer");
+
+  renderWithTemplate(headerTemplateFn, header);
+  renderWithTemplate(footerTemplateFn, footer);
+
 }
