@@ -50,3 +50,40 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   const htmlStrings =  list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
+
+export async function renderWithTemplate(templateFn, parentElement, data, callback, position="afterbegin", clear = true){
+  if (clear == true){
+    parentElement.innerHTML = "";
+  }
+  let template = await templateFn(data);
+  parentElement.insertAdjacentHTML(position, template);
+  if (callback) {
+    callback(data);
+  }
+}
+
+function loadTemplate(path){
+  return async function () {
+    const res = await fetch(path);
+    
+    if (res.ok) {
+    const html = await res.text();
+    console.log(html);
+    console.log(res);
+    return html;
+    }
+  };
+}
+
+export function loadHeaderFooter(){
+  const headerTemplateFn = loadTemplate("../partials/header.html");
+  const footerTemplateFn = loadTemplate("../partials/footer.html");
+
+  let header = document.querySelector("#main-header");
+
+  let footer = document.querySelector("#main-footer");
+
+  renderWithTemplate(headerTemplateFn, header);
+  renderWithTemplate(footerTemplateFn, footer);
+
+}
