@@ -33,7 +33,8 @@ export function getParam(param) {
 export function getCartCountFromLocalStorage() {
   const cartItems = getLocalStorage('so-cart') || [];
   if (Array.isArray(cartItems)) {
-    return cartItems.length
+    const backpackBadge = document.getElementById("cart-count");
+    return backpackBadge.innerHTML = cartItems.length
   }
 }
 
@@ -57,9 +58,7 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
   }
   let template = await templateFn(data);
   parentElement.insertAdjacentHTML(position, template);
-  if (callback) {
-    callback(data);
-  }
+  getCartCountFromLocalStorage()
 }
 
 function loadTemplate(path){
