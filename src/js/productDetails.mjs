@@ -1,11 +1,12 @@
 import { findProductById } from "./productData.mjs";
 import { setLocalStorage, getLocalStorage, getCartCountFromLocalStorage } from "./utils.mjs";
 
-let cartCount = getCartCountFromLocalStorage();
+
 
 const addButton = document.querySelector("#addToCart");
 
-export default  async function productDetails(productId) {
+export default async function productDetails(productId) {
+    console.log("productDetails");
     const productInformation = await findProductById(productId);
     if (productInformation == undefined) {
       renderNotFoundMessage();
@@ -18,6 +19,7 @@ export default  async function productDetails(productId) {
 
 //add to cart button event handler
 async function addToCartHandler(e) {
+    let cartCount = getCartCountFromLocalStorage();
     cartCount++;
     const product = await findProductById(e.target.dataset.id);
     const backpackBadge = document.getElementById("cart-count");

@@ -34,7 +34,7 @@ export function getCartCountFromLocalStorage() {
   const cartItems = getLocalStorage('so-cart') || [];
   if (Array.isArray(cartItems)) {
     const backpackBadge = document.getElementById("cart-count");
-    return backpackBadge.innerHTML = cartItems.length
+    return backpackBadge.innerHTML = cartItems.length;
   }
 }
 
@@ -67,14 +67,13 @@ function loadTemplate(path){
     
     if (res.ok) {
     const html = await res.text();
-    console.log(html);
-    console.log(res);
     return html;
     }
   };
 }
 
 export function loadHeaderFooter(){
+
   const headerTemplateFn = loadTemplate("../partials/header.html");
   const footerTemplateFn = loadTemplate("../partials/footer.html");
 
