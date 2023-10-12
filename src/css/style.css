@@ -233,6 +233,21 @@ button {
   text-align: center;
 }
 
+/* Product price discount */
+.line-through {
+  text-decoration: line-through;
+  margin-left: 1em;
+  margin-top: 1.5em;
+  font-size: 0.8em;
+  color: #a5a5a5;
+}
+
+.product-price-discount {
+  font-size: 1.4em;
+  font-weight: bold;
+  display: flex;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
