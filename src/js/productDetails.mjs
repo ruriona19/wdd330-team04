@@ -19,8 +19,6 @@ export default async function productDetails(productId) {
 
 //add to cart button event handler
 async function addToCartHandler(e) {
-    let cartCount = getCartCountFromLocalStorage();
-    cartCount++;
     const product = await findProductById(e.target.dataset.id);
     const backpackBadge = document.getElementById("cart-count");
 
@@ -28,6 +26,8 @@ async function addToCartHandler(e) {
 
     // Add Cart Button animated
     this.innerHTML = "Adding, please wait";
+
+    let cartCount = getCartCountFromLocalStorage();
 
     setTimeout(() => {
       this.innerHTML = "Added To Cart!";
@@ -41,7 +41,26 @@ async function addToCartHandler(e) {
     }, 5000);
     
 }
- 
+
+function checkProductInCart(product, cart){
+    let check = false;
+    cart.forEach(element => {
+      if (element.Id === product.Id){
+        check = true;
+      }
+    });
+    return check;
+}
+
+function returnIndexOfProductInCart(product, cart){
+    for (let index = 0; index < cart.length; index++) {
+      const element = cart[index];
+      if (element.Id === product.Id){
+        return index;
+      }
+      
+    }
+}
 
 function addProductToCart(product) {
     // Get the current cart items from local storage or initialize an empty array
@@ -51,9 +70,16 @@ function addProductToCart(product) {
     if (!Array.isArray(cartItems)) {
       cartItems = [];
     }
-  
-    // Add the product to the cartItems array
-    cartItems.push(product);
+    let check = checkProductInCart(product, cartItems);
+    // If product already is in cart, add qty by 1, if not, add to cart
+    if (check == true){
+      let index = returnIndexOfProductInCart(product, cartItems);
+      let newCount = parseInt(cartItems[index].Qty) + 1;
+      cartItems[index].Qty = newCount;
+    } else {
+      product.Qty = 1;
+      cartItems.push(product);
+    }
   
     // Store the updated cartItems back in local storage
     setLocalStorage("so-cart", cartItems);
