@@ -1,5 +1,5 @@
 import {getData} from "./productData.mjs";
-import { renderListWithTemplate } from "./utils.mjs";
+import { renderListWithTemplate, substractDiscount } from "./utils.mjs";
 
 
 export default async function productList(category, selector, limitNumber = 4){
@@ -18,7 +18,10 @@ function filterProducts(products, numberOfTents) {
 }
 
 function productCardTemplate(product){
-    return `<li class="product-card">
+
+  let discount = `-${substractDiscount(product.SuggestedRetailPrice, product.FinalPrice)}.00`;
+
+  return `<li class="product-card">
     <a href="product_pages/index.html?product=${product.Id}">
       <img
         src="${product.Image}"
@@ -26,7 +29,9 @@ function productCardTemplate(product){
       />
       <h3 class="card__brand">${product.Brand.Name}</h3>
       <h2 class="card__name">${product.NameWithoutBrand}</h2>
-      <p class="product-card__price">${product.FinalPrice}</p></a
-    >
+      <p class="product-card__price">Sale Price: ${product.FinalPrice}</p>
+      <p class="product-card__discount">Discount: ${discount}</p>
+      </a>
   </li>`
 }
+

@@ -85,3 +85,7 @@ export function loadHeaderFooter(){
   renderWithTemplate(footerTemplateFn, footer);
 
 }
+
+export function substractDiscount(retailPrice, finalPrice){
+  return retailPrice - finalPrice;
+}

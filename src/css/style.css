@@ -166,6 +166,11 @@ button {
 .card__name {
   font-size: 1em;
 }
+
+.product-card__discount {
+  color: red;
+  font-style: italic;
+}
 /* End product list card */
 
 .product-detail {
