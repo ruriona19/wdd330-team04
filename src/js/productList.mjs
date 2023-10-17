@@ -22,7 +22,7 @@ function productCardTemplate(product){
   let discount = `-${substractDiscount(product.SuggestedRetailPrice, product.FinalPrice)}.00`;
 
   return `<li class="product-card">
-    <a href="product_pages/index.html?product=${product.Id}">
+    <a href="/product_pages/index.html?product=${product.Id}">
       <img
         src="${product.Image}"
         alt="${product.Name}"

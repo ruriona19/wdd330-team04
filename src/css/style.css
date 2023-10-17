@@ -76,6 +76,18 @@ header {
 .logo--square > div {
   margin-top: -1.7em;
 }
+
+.icons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.icons a {
+  font-style: normal;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
