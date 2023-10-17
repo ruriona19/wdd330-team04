@@ -6,7 +6,6 @@ import { setLocalStorage, getLocalStorage, getCartCountFromLocalStorage } from "
 const addButton = document.querySelector("#addToCart");
 
 export default async function productDetails(productId) {
-    console.log("productDetails");
     const productInformation = await findProductById(productId);
     if (productInformation == undefined) {
       renderNotFoundMessage();
@@ -63,7 +62,7 @@ function renderProductDetails(object) {
     const id = object.Id;
     const name = object.Name;
     const nameWithoutBrand = object.NameWithoutBrand;
-    const image = object.Image;
+    const image = object.Images.PrimaryLarge;
     const price = "$" + object.FinalPrice;
     const retailPrice = "$" + object.SuggestedRetailPrice;
     const color = object.Colors.ColorName;
