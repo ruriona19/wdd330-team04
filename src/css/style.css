@@ -88,6 +88,10 @@ header {
   color: black;
   text-align: center;
 }
+
+.category-title {
+  text-transform: capitalize;
+}
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
@@ -169,6 +173,10 @@ button {
 .product-card h3,
 .product-card p {
   margin: 0.5em 0;
+}
+.product-card img {
+  margin: 1.5rem auto;
+  display: block;
 }
 
 .card__brand {
