@@ -191,6 +191,12 @@ button {
   color: red;
   font-style: italic;
 }
+.breadcrumb {
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
 /* End product list card */
 
 .product-detail {
