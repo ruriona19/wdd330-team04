@@ -1,3 +1,5 @@
+import { getData } from "./productData.mjs";
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -83,9 +85,23 @@ export function loadHeaderFooter(){
 
   renderWithTemplate(headerTemplateFn, header);
   renderWithTemplate(footerTemplateFn, footer);
-
+  
 }
 
 export function substractDiscount(retailPrice, finalPrice){
   return retailPrice - finalPrice;
+}
+
+export function searchBar() {
+
+  const searchInput = document.querySelector("#search");
+
+  searchInput.addEventListener("input", e => {
+    const value = e.target.value;
+    console.log(value);
+  })
+
+  let products = getData(tents);
+
+  
 }

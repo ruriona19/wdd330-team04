@@ -97,7 +97,7 @@ padding: .5rem .5rem;
   position: relative;
 }
 .hero .logo {
-  position: absolute;
+  position: sticky;
   left: calc(50% - 60px);
   bottom: -10px;
   background-color: white;
