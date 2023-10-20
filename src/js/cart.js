@@ -1,5 +1,9 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, searchBar } from "./utils.mjs";
 import { renderCartContents } from "./shoppingCart.mjs";
 
 renderCartContents();
-loadHeaderFooter();
+async function main() {
+    await loadHeaderFooter();
+    searchBar();
+    }
+main();

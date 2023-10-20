@@ -1,3 +1,4 @@
+import { doc } from "prettier";
 import { getData } from "./productData.mjs";
 
 // wrapper for querySelector...returns matching element
@@ -97,9 +98,6 @@ export function searchBar() {
   const resultContainer = document.querySelector(".product-search-list");
   //This function will update the list of items based on the category and input entered. 
   searchForQuery(resultContainer,);
-
-
-
   
 }
 
@@ -109,6 +107,7 @@ async function searchForQuery(resultContainer) {
   let searchCat = "tent";
   let productsSearchList = [];
 
+  //This event listener changes the rendered list anytime the category is updated. 
   searchCategory.addEventListener("input",async e => {
     const value = e.target.value;
     searchCat = value;
@@ -116,30 +115,40 @@ async function searchForQuery(resultContainer) {
     renderListWithTemplate(renderResultCard,resultContainer, productsSearchList)
   })
 
+  //This event listener changes the rendered list anytime the input is updated by comparing 
+  //the query entered with the name of the product if the user enters "back" it will look for
+  //that sequence of letters in that order in the name property.
   searchInput.addEventListener("input", async e => {
     const value = e.target.value.toLowerCase();
     console.log(value);
     searchCat = searchCategory.value;
-    productsSearchList = await getData(searchCat);
-    let newList = [];
-
-    productsSearchList.forEach(product => {
-        const isVisible = product.Name.includes(value);
+    let searchedList = document.querySelector(".product-search-list");
+    
+    if (searchedList){
+    let liElements = searchedList.querySelectorAll("li");
+    //This will loop through each element of the list generated from the category selected. 
+    liElements.forEach(listElement => {
+        let cardName = listElement.querySelector(".product-search-name")
+        let cardNameContent = cardName.textContent;
+        //this variable returns true or false when the value entered is included in the name 
+        //of the current product being iterated.
+        const isVisible = cardNameContent.includes(value);
+      //This if statement checks if the query entered matched the name of the product being iterated. 
+      //if it does, then the current product <li> element is not modified, but if it doesn't match,
+      //the else if condition will add "hide" to the classList of the <li> element, causing that
+      //card to be hidden. 
         if (isVisible){
-
-          newList.push(product);
-          renderListWithTemplate(renderResultCard,resultContainer, newList);
-
-        } else {
-          const resultCard = document.querySelector(".product-search-card");
-          resultCard.classList.toggle("hide", !isVisible);
-          renderListWithTemplate(renderResultCard,resultContainer, newList);
-          if (newList == []){
-            newList = productsSearchList;
-          }
+          return true;
+        } else if (!isVisible) {
+          try{
+          listElement.classList.toggle("hide", !isVisible);
+        } catch(error) {
+            alert("No results!");
+        }
 
         }
-    })
+  }
+    )}
 })
 }
 
