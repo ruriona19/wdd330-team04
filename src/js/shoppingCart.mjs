@@ -39,6 +39,7 @@ import {
   }
   
   function cartItemTemplate(item) {
+    const subtotal = item.FinalPrice * parseInt(item.Qty);
     const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img
@@ -59,7 +60,7 @@ import {
       <option value="4">4</option>
     </select></label>
     
-    <p class="cart-card__price">$${item.FinalPrice}</p>
+    <p class="cart-card__price">$${subtotal}</p>
   </li>`;
   
     return newItem;
@@ -89,8 +90,9 @@ function updateItem(){
 
     let item = cartItems.find((element) => element.Id === toUpdate);
     item.Qty = this.value;
-    
     setLocalStorage("so-cart", cartItems);
+    getCartCountFromLocalStorage();
+    renderCartContents();
     calculateTotal(cartItems);
 }
 
