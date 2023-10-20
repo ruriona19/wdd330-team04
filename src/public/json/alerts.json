@@ -1,7 +1,16 @@
 [
   {
+    "type": "test",
     "message": "This is only a test",
     "backgroundColor": "darkblue",
     "color": "white"
+  },
+  {
+    "type": "item added",
+    "message": "Item has been added to Cart!",
+    "backgroundColor": "darkred",
+    "color": "white"
   }
+
+
 ]
