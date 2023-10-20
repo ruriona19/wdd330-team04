@@ -31,19 +31,21 @@
   <div id="cart-count"></div>
 </div>
 <nav class="search-bar-container">
+  <label class="category-searchbar-label" for="category-search">
+    <select id="category-search" name="category">
+      <option value="" disabled selected hidden>Category</option>
+      <option value="tents">Tents</option>
+      <option value="backpacks">Backpacks</option>
+      <option value="sleeping-bags">Sleeping Bags</option>
+      <option value="hammocks">Hammocks</option>
+    </select>
+  </label>
   <label for="search">
   <input type="search" id="search" placeholder="&#x1F50D; Search article">
   </label>
+  
   <ul class="product-search-list">
-    <li class="product-search-card">
-      <a href="product_pages/marmot-ajax-3.html" class="product-search-link">
-        <img src="images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg"
-          alt="Marmot Ajax tent">
-      </a>
-      <a href="product_pages/marmot-ajax-3.html">
-        <h2 class="product-search-name">Marmot Ajax Tent - 3-Person, 3-Season</h2>
-      </a>
-      <p class="product-search-price">$199.99</p>
-    </li>
+    <li class="product-search-card"></li>
   </ul>
 </nav>
+

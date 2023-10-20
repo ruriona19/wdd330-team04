@@ -74,7 +74,7 @@ function loadTemplate(path){
   };
 }
 
-export function loadHeaderFooter(){
+export async function loadHeaderFooter(){
 
   const headerTemplateFn = loadTemplate("../partials/header.html");
   const footerTemplateFn = loadTemplate("../partials/footer.html");
@@ -83,7 +83,7 @@ export function loadHeaderFooter(){
 
   let footer = document.querySelector("#main-footer");
 
-  renderWithTemplate(headerTemplateFn, header);
+  await renderWithTemplate(headerTemplateFn, header);
   renderWithTemplate(footerTemplateFn, footer);
   
 }
@@ -94,14 +94,67 @@ export function substractDiscount(retailPrice, finalPrice){
 
 export function searchBar() {
 
-  const searchInput = document.querySelector("#search");
+  const resultContainer = document.querySelector(".product-search-list");
+  //This function will update the list of items based on the category and input entered. 
+  searchForQuery(resultContainer,);
 
-  searchInput.addEventListener("input", e => {
-    const value = e.target.value;
-    console.log(value);
-  })
 
-  let products = getData(tents);
 
   
+}
+
+async function searchForQuery(resultContainer) {
+  const searchInput = document.querySelector("#search");
+  const searchCategory = document.querySelector("#category-search");
+  let searchCat = "tent";
+  let productsSearchList = [];
+
+  searchCategory.addEventListener("input",async e => {
+    const value = e.target.value;
+    searchCat = value;
+    productsSearchList = await getData(searchCat)
+    renderListWithTemplate(renderResultCard,resultContainer, productsSearchList)
+  })
+
+  searchInput.addEventListener("input", async e => {
+    const value = e.target.value.toLowerCase();
+    console.log(value);
+    searchCat = searchCategory.value;
+    productsSearchList = await getData(searchCat);
+    let newList = [];
+
+    productsSearchList.forEach(product => {
+        const isVisible = product.Name.includes(value);
+        if (isVisible){
+
+          newList.push(product);
+          renderListWithTemplate(renderResultCard,resultContainer, newList);
+
+        } else {
+          const resultCard = document.querySelector(".product-search-card");
+          resultCard.classList.toggle("hide", !isVisible);
+          renderListWithTemplate(renderResultCard,resultContainer, newList);
+          if (newList == []){
+            newList = productsSearchList;
+          }
+
+        }
+    })
+})
+}
+
+function renderResultCard(product) {
+
+  return `<li class="product-search-card">
+  <a href="/product_pages/index.html?product=${product.Id}">
+    <img
+      src="${product.Images.PrimaryMedium}"
+      alt="${product.Name}"
+    />
+  </a>
+  <a href="/product_pages/index.html?product=${product.Id}">
+    <h2 class="product-search-name">${product.NameWithoutBrand}</h2>
+  </a>
+  <p class="product-search-price">${product.FinalPrice}</p>
+</li>`;
 }

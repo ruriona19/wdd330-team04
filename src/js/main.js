@@ -1,6 +1,12 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, searchBar} from "./utils.mjs";
 import Alert from "./alert.js";
 
 const alertInstance = new Alert();
 alertInstance.AlertsDatafetch().then(() => alertInstance.buildAlertElements());
-loadHeaderFooter();
+
+async function main() {
+await loadHeaderFooter();
+searchBar();
+}
+
+main();
