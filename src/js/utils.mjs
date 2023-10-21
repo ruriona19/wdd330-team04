@@ -129,7 +129,7 @@ async function searchForQuery(resultContainer) {
     //This will loop through each element of the list generated from the category selected. 
     liElements.forEach(listElement => {
         let cardName = listElement.querySelector(".product-search-name")
-        let cardNameContent = cardName.textContent;
+        let cardNameContent = cardName.textContent.toLowerCase();
         //this variable returns true or false when the value entered is included in the name 
         //of the current product being iterated.
         const isVisible = cardNameContent.includes(value);
