@@ -1,8 +1,7 @@
 import {
     getLocalStorage,
     setLocalStorage,
-    getCartCountFromLocalStorage,
-    loadHeaderFooter,
+    getCartCountFromLocalStorage
   } from "./utils.mjs";
 
   export function renderCartContents() {
@@ -17,6 +16,7 @@ import {
         productList.innerHTML = htmlItems.join("");
         calculateTotal(cartItems);
         addRemoveFunctionality();
+        updateQuantity();
       }
     } catch (error) {
       alert(error.message);
@@ -32,13 +32,14 @@ import {
   
     let total = 0;
     products.forEach((element) => {
-      total += element.FinalPrice;
+      total += (element.FinalPrice * element.Qty);
     });
   
     cartTotal.textContent = `Total: $ ${total}`;
   }
   
   function cartItemTemplate(item) {
+    const subtotal = item.FinalPrice * parseInt(item.Qty);
     const newItem = `<li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img
@@ -51,8 +52,15 @@ import {
     </a>
     <button id="closeBtn" data-id="${item.Id}"><span class="remove-x">X</span></button>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity">qty: 1</p>
-    <p class="cart-card__price">$${item.FinalPrice}</p>
+    <label class="cart-card__quantity">Quantity: <select class="productQuantity" name="quantity" data-id="${item.Id}" required>
+      <option value=${item.Qty} selected>${item.Qty}</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select></label>
+    
+    <p class="cart-card__price">$${subtotal}</p>
   </li>`;
   
     return newItem;
@@ -66,6 +74,28 @@ import {
     });
   }
 
+  // Add functionality to update cart in local storage everytime user clicks a new quantity selection in cart page
+  function updateQuantity() {
+    const selection = document.querySelectorAll(".productQuantity");
+  
+    selection.forEach((select) => {
+      select.addEventListener("change", updateItem);
+    });
+  }
+
+  // Get current cart, update quantity based on product selection, update cart in local storage
+function updateItem(){
+    let cartItems = getLocalStorage("so-cart");
+    let toUpdate = this.dataset.id;
+
+    let item = cartItems.find((element) => element.Id === toUpdate);
+    item.Qty = this.value;
+    setLocalStorage("so-cart", cartItems);
+    getCartCountFromLocalStorage();
+    renderCartContents();
+    calculateTotal(cartItems);
+}
+
   // Get current cart, remove corresponding item, update new cart and cart icon
 function removeItem() {
     let cartItems = getLocalStorage("so-cart");
@@ -76,7 +106,7 @@ function removeItem() {
     setLocalStorage("so-cart", newCart);
   
     renderCartContents();
-    cartItemsCount = getCartCountFromLocalStorage();
+    let cartItemsCount = getCartCountFromLocalStorage();
     backpackBadge.innerHTML = cartItemsCount;
   }
   
