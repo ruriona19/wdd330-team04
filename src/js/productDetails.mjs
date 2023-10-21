@@ -7,7 +7,6 @@ import Alert from "./alert.js";
 const addButton = document.querySelector("#addToCart");
 
 export default async function productDetails(productId) {
-    console.log("productDetails");
     const productInformation = await findProductById(productId);
     if (productInformation == undefined) {
       renderNotFoundMessage();
@@ -86,7 +85,7 @@ function renderProductDetails(object) {
     const id = object.Id;
     const name = object.Name;
     const nameWithoutBrand = object.NameWithoutBrand;
-    const image = object.Image;
+    const image = object.Images.PrimaryLarge;
     const price = "$" + object.FinalPrice;
     const retailPrice = "$" + object.SuggestedRetailPrice;
     const color = object.Colors.ColorName;
@@ -98,6 +97,7 @@ function renderProductDetails(object) {
     document.querySelector("#productImage").setAttribute("alt",name);
     document.querySelector("#productFinalPrice").textContent = price;
     document.querySelector("#suggestedRetailPrice").textContent = retailPrice;
+    document.querySelector("#discountFlag").textContent = getDiscountPercentage(object.SuggestedRetailPrice, object.FinalPrice);
     document.querySelector("#productColorName").textContent = color;
     document.querySelector("#productDescriptionHtmlSimple").innerHTML = description;
     document.querySelector("#addToCart").setAttribute("data-id", id);
@@ -111,6 +111,19 @@ function renderNotFoundMessage(){
   to order, please check back again later to see if the product is 
   back or try a different name...</p>
   <a href="../index.html">Click here to see other products</a>`);
-
 }
+
+function getDiscountPercentage(oldPrice, newPrice) {
+  let oPrice = Number(oldPrice),
+  nPrice = Number(newPrice);
+  if (nPrice > oPrice) {
+    let percentage = nPrice / oPrice * 100 - 100;
+    let additionPercentage = parseInt(percentage) + "% UP";
+    return additionPercentage;
+  } else if (nPrice < oPrice) {
+    let percentage = -nPrice / oPrice * 100 + 100;
+    let discountPercentage = parseInt(percentage) + "% OFF";
+    return discountPercentage;
+  }
+};
 

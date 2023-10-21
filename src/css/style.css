@@ -76,6 +76,22 @@ header {
 .logo--square > div {
   margin-top: -1.7em;
 }
+
+.icons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.icons a {
+  font-style: normal;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
+.category-title {
+  text-transform: capitalize;
+}
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
@@ -158,6 +174,10 @@ button {
 .product-card p {
   margin: 0.5em 0;
 }
+.product-card img {
+  margin: 1.5rem auto;
+  display: block;
+}
 
 .card__brand {
   font-size: var(--small-font);
@@ -166,16 +186,37 @@ button {
 .card__name {
   font-size: 1em;
 }
+
+.product-card__discount {
+  color: red;
+  font-style: italic;
+}
 /* End product list card */
 
 .product-detail {
   padding: 1em;
   max-width: 500px;
-  margin: auto;
+  margin: 4em auto;
+  background-color: var(--light-grey);
 }
 
 .product-detail img {
   width: 100%;
+}
+
+.product-detail #discountFlag {
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 55%);
+  transform: translate(-50%, 55%);
+  width: 100px;
+  padding: 15px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-size: 1.4em;
+  border: 4px solid #ffffff;
 }
 
 /* Start cart list card styles */
@@ -244,16 +285,25 @@ button {
 /* Product price discount */
 .line-through {
   text-decoration: line-through;
-  margin-left: 1em;
-  margin-top: 1.5em;
   font-size: 0.8em;
   color: #a5a5a5;
+  align-self: flex-end;
 }
 
 .product-price-discount {
   font-size: 1.4em;
   font-weight: bold;
   display: flex;
+  justify-content: center;
+  align-self: flex-end;
+}
+
+.product-price-discount p {
+  margin: 0 0.3em;
+}
+
+.product-detail__add {
+  margin-bottom: 3.5em;
 }
 
 @media screen and (min-width: 500px) {
