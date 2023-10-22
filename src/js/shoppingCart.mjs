@@ -35,32 +35,25 @@ import {
       total += (element.FinalPrice * element.Qty);
     });
   
-    cartTotal.textContent = `Total: $ ${total}`;
+    cartTotal.textContent = `Total: $ ${total.toFixed(2)}`;
   }
   
   function cartItemTemplate(item) {
     const subtotal = item.FinalPrice * parseInt(item.Qty);
     const newItem = `<li class="cart-card divider">
-    <a href="#" class="cart-card__image">
+    <a href="/product_pages/index.html?product=${item.Id}" class="cart-card__image">
       <img
-        src="${item.Image}"
+        src="${item.Images.PrimaryMedium}"
         alt="${item.Name}"
       />
     </a>
-    <a href="#">
+    <a href="/product_pages/index.html?product=${item.Id}">
       <h2 class="card__name">${item.Name}</h2>
     </a>
     <button id="closeBtn" data-id="${item.Id}"><span class="remove-x">X</span></button>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <label class="cart-card__quantity">Quantity: <select class="productQuantity" name="quantity" data-id="${item.Id}" required>
-      <option value=${item.Qty} selected>${item.Qty}</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-    </select></label>
-    
-    <p class="cart-card__price">$${subtotal}</p>
+    <label class="cart-card__quantity">Quantity: <input class="productQuantity" type="number" name="quantity" min="1" max="999" data-id="${item.Id}" value=${parseInt(item.Qty)}  required></label>
+    <p class="cart-card__price">$${subtotal.toFixed(2)}</p>
   </li>`;
   
     return newItem;
@@ -77,7 +70,7 @@ import {
   // Add functionality to update cart in local storage everytime user clicks a new quantity selection in cart page
   function updateQuantity() {
     const selection = document.querySelectorAll(".productQuantity");
-  
+    
     selection.forEach((select) => {
       select.addEventListener("change", updateItem);
     });
@@ -89,6 +82,13 @@ function updateItem(){
     let toUpdate = this.dataset.id;
 
     let item = cartItems.find((element) => element.Id === toUpdate);
+    if (this.value.length > 3) {
+      this.value = this.value.slice(0,3); 
+    }
+    if (this.value == 0){
+      this.value = 1;
+      this.textContent = "1";
+    }
     item.Qty = this.value;
     setLocalStorage("so-cart", cartItems);
     getCartCountFromLocalStorage();
@@ -106,8 +106,7 @@ function removeItem() {
     setLocalStorage("so-cart", newCart);
   
     renderCartContents();
-    let cartItemsCount = getCartCountFromLocalStorage();
-    backpackBadge.innerHTML = cartItemsCount;
+    getCartCountFromLocalStorage();
   }
   
   function renderEmptyMessage() {
