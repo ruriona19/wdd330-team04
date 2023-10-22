@@ -191,11 +191,15 @@ button {
   color: red;
   font-style: italic;
 }
-.breadcrumb {
+.breadcrumbs {
   padding: 10px;
-  align-items: center;
-  justify-content: center;
   font-size: 18px;
+  display: flex;
+}
+.breadcrumbs li{
+  padding: 5px;
+  text-decoration: none;
+  list-style-type: none;
 }
 /* End product list card */
 

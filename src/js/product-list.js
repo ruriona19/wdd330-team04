@@ -17,13 +17,15 @@ document.addEventListener('DOMContentLoaded', async function () { // that way I 
   updateBreadcrumb(productCategory, products);
 });
 
-function updateBreadcrumb(category, count) {
+export function updateBreadcrumb(category, count, isProductListPage = true) { //add a boolean to handle the breadcrumb differences
   const breadcrumbElement = document.getElementById('breadcrumb');
 
-  if (category) {
-    breadcrumbElement.textContent = `${category} > (${count} items)`; //assign the texto to the breadcrumb
+  if (category && isProductListPage) {
+    breadcrumbElement.href = `../product-list/index.html?category=${encodeURIComponent(category)}`;
+    breadcrumbElement.textContent = `${category} > (${count} items)`; //assign the text to the breadcrumb
   } else {
-    breadcrumbElement.style.display = 'none'; // it hides the breadcrumb if there's no category, not necessary actually
+    breadcrumbElement.href = `../product-list/index.html?category=${encodeURIComponent(category)}`;
+    breadcrumbElement.textContent = `${category}`; //assign the text to the breadcrumb
   }
 }
 
