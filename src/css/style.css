@@ -56,7 +56,7 @@ header {
 }
 
 #search {
-font-size: 1rem;
+  font-size: 1rem;
 }
 
 #category-search {
@@ -68,40 +68,38 @@ font-size: 1rem;
   margin-right: -5px;
 }
 
-
 .product-search-card.hide {
   display: none;
 }
 
 .product-search-list {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-padding: .5rem .5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  padding: 0.5rem 0.5rem;
 }
 
 .product-search-card {
   display: grid;
   grid-template-columns: 100px 1fr 150px;
   list-style: none;
-  border: solid black .1rem;
-  padding: .5rem 1rem;
-
+  border: solid black 0.1rem;
+  padding: 0.5rem 1rem;
 }
 
-.product-search-card a img { 
+.product-search-card a img {
   width: 90%;
 }
 
-.product-search-card a { 
+.product-search-card a {
   text-decoration: none;
   color: black;
-  font-size: .7rem;
+  font-size: 0.7rem;
 }
 
 .product-search-price {
   display: inline-block;
   font-size: 1rem;
-  vertical-align:top;
+  vertical-align: top;
 }
 .hero {
   position: relative;

@@ -138,7 +138,11 @@ async function searchForQuery(resultContainer) {
       //the else if condition will add "hide" to the classList of the <li> element, causing that
       //card to be hidden. 
         if (isVisible){
-          return true;
+          if (listElement.classList.contains("hide")){
+            listElement.classList.remove("hide");
+          } else {
+            return true;
+          }
         } else if (!isVisible) {
           try{
           listElement.classList.toggle("hide", !isVisible);

@@ -3,7 +3,7 @@ import { renderCartContents } from "./shoppingCart.mjs";
 
 renderCartContents();
 async function main() {
-    await loadHeaderFooter();
-    searchBar();
-    }
+  await loadHeaderFooter();
+  searchBar();
+}
 main();
