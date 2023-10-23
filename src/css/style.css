@@ -253,6 +253,11 @@ button {
   padding: 0px;
 }
 
+.productQuantity {
+  max-width: 3rem;
+  text-align: center;
+}
+
 .cart-card__price {
   grid-row: 3;
   grid-column: 3;
@@ -304,6 +309,19 @@ button {
 
 .product-detail__add {
   margin-bottom: 3.5em;
+}
+
+.product__quantity {
+  display: block;
+  margin: 1rem 0px;
+  text-align: center;
+  
+}
+
+#product-selected-qty {
+  padding: 0.3rem 1em;
+  margin: 1rem 0.5rem;
+  font-size: 1rem;
 }
 
 @media screen and (min-width: 500px) {

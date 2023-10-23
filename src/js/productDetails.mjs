@@ -61,7 +61,7 @@ function returnIndexOfProductInCart(product, cart){
 function addProductToCart(product) {
     // Get the current cart items from local storage or initialize an empty array
     let cartItems = getLocalStorage("so-cart") || [];
-  
+    let selectedQty = parseInt(document.querySelector("#product-selected-qty").value);
     // Ensure cartItems is an array
     if (!Array.isArray(cartItems)) {
       cartItems = [];
@@ -70,10 +70,10 @@ function addProductToCart(product) {
     // If product already is in cart, add qty by 1, if not, add to cart
     if (check == true){
       let index = returnIndexOfProductInCart(product, cartItems);
-      let newCount = parseInt(cartItems[index].Qty) + 1;
+      let newCount = parseInt(cartItems[index].Qty) + selectedQty;
       cartItems[index].Qty = newCount;
     } else {
-      product.Qty = 1;
+      product.Qty = selectedQty;
       cartItems.push(product);
     }
   
@@ -90,6 +90,7 @@ function renderProductDetails(object) {
     const retailPrice = "$" + object.SuggestedRetailPrice;
     const color = object.Colors.ColorName;
     const description = object.DescriptionHtmlSimple;
+    const selectQty = document.querySelector("#product-selected-qty");
 
     document.querySelector("#productName").textContent = name;
     document.querySelector("#productNameWithoutBrand").textContent = nameWithoutBrand;
@@ -101,6 +102,15 @@ function renderProductDetails(object) {
     document.querySelector("#productColorName").textContent = color;
     document.querySelector("#productDescriptionHtmlSimple").innerHTML = description;
     document.querySelector("#addToCart").setAttribute("data-id", id);
+
+    // Create selection options for qty dropdown menu
+
+    let maxQty = 4; // Allow to modify max qty per item if needed
+
+    for (let index = 1; index <= maxQty; index++) {
+      let option = new Option(`${index}`, index);
+      selectQty.append(option);
+    }
 }
 
 function renderNotFoundMessage(){
