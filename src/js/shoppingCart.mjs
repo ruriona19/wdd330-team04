@@ -47,7 +47,7 @@ import {
     const newItem = `<li class="cart-card divider">
     <a href="/product_pages/index.html?product=${item.Id}" class="cart-card__image">
       <img
-        src="${item.Images.PrimaryMedium}"
+        src="${item.Image}"
         alt="${item.Name}"
       />
     </a>
