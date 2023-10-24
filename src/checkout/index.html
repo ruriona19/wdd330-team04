@@ -32,7 +32,7 @@
           </fieldset>
           <fieldset>
               <legend>Payment</legend>
-              <label class="form-label">Card Number<input type="number" name="cardNumber" id="cardNumber" pattern="^[0-9]{16}$" required></label>
+              <label class="form-label">Card Number<input type="text" name="cardNumber" id="cardNumber" minlength="16" pattern="^[0-9]{16}" required></label>
               <label class="form-label">Expiration<input type="text" name="expiration" id="expiration"></label>
               <label class="form-label">Code<input type="number" name="code" id="code" pattern="^[0-9]" minlength="3" maxlength="3"></label>
           </fieldset>

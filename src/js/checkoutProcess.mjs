@@ -24,6 +24,12 @@ function formDataToJSON(formElement) {
     });
     return simplifiedItems;
   }
+  
+  function calculateTotalQtys(list){
+    const quantities = list.map((item)=> item.Qty);
+    const totalQtys = quantities.reduce((sum, item) => sum + parseFloat(item));
+    return totalQtys;
+  }
 
 
 const checkoutProcess = {
@@ -43,20 +49,20 @@ const checkoutProcess = {
   calculateItemSummary: function() {
     // calculate and display the total amount of the items in the cart, and the number of items.
     let cartSubTotal = document.querySelector( this.outputSelector + " #subtotal");
-    const amounts = this.list.map((item) => item.FinalPrice);
+    const amounts = this.list.map((item) => (item.FinalPrice*item.Qty));
     this.itemTotal = amounts.reduce((sum, item) => sum + item);
-    cartSubTotal.textContent = `$ ${this.itemTotal}`;
+    cartSubTotal.textContent = `$${this.itemTotal}`;
     // Calculate total quantities including if item is repeated
     let numberItems = document.querySelector( this.outputSelector + " #number-of-items");
-    const quantities = this.list.map((item)=> item.Qty);
-    const totalQtys = quantities.reduce((sum, item) => sum + parseFloat(item));
+    const totalQtys = calculateTotalQtys(this.list);
     numberItems.textContent = totalQtys; 
     
   },
   calculateOrdertotal: function() {
     // calculate the shipping and tax amounts. Then use them to along with the cart total to figure out the order total
     this.tax = (this.itemTotal * 0.06).toFixed(2);
-    this.shipping = 10 + ((this.list.length - 1) * 2).toFixed(2);
+    const totalQtys = calculateTotalQtys(this.list);
+    this.shipping = (10 + ((totalQtys - 1) * 2)).toFixed(2);
     
     // display the totals.
     this.displayOrderTotals();
@@ -67,11 +73,11 @@ const checkoutProcess = {
     let shippingElement = document.querySelector(this.outputSelector + " #shipping-estimate");
     let totalElement = document.querySelector(this.outputSelector + " #order-total");
     
-    taxElement.textContent = this.tax;
-    shippingElement.textContent = this.shipping;
+    taxElement.textContent = `$${this.tax}`;
+    shippingElement.textContent = `$${this.shipping}`;
     let total = parseFloat(this.itemTotal) + parseFloat(this.tax) + parseFloat(this.shipping);
     this.orderTotal = total;
-    totalElement.textContent = total;
+    totalElement.textContent = `$${total}`;
   },
   
   checkout: async function (form) {
