@@ -8,9 +8,12 @@ export default async function productList(category, selector, limitNumber = 4){
 
     let filteredProduct = filterProducts(listedProducts, limitNumber);
 
+    const filteredProductsCat = listedProducts.filter(product => product.Category === category); //filter by category
+    //this way I can count how much products per category ex tents -> 14
+
     renderListWithTemplate(productCardTemplate, selector, filteredProduct);
     
-
+    return filteredProductsCat.length
 }
 
 function filterProducts(products, numberOfTents) {

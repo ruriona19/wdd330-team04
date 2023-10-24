@@ -36,8 +36,12 @@ export function getParam(param) {
 export function getCartCountFromLocalStorage() {
   const cartItems = getLocalStorage('so-cart') || [];
   if (Array.isArray(cartItems)) {
+    let totalQty = 0;
+    cartItems.forEach(element => {
+      totalQty += parseInt(element.Qty);
+    });
     const backpackBadge = document.getElementById("cart-count");
-    return backpackBadge.innerHTML = cartItems.length;
+    return backpackBadge.innerHTML = totalQty;
   }
 }
 

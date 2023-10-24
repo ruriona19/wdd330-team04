@@ -1,5 +1,6 @@
 import { findProductById } from "./productData.mjs";
 import { setLocalStorage, getLocalStorage, getCartCountFromLocalStorage } from "./utils.mjs";
+import Alert from "./alert.js";
 
 
 
@@ -13,46 +14,72 @@ export default async function productDetails(productId) {
     } else {
     renderProductDetails(productInformation);
     addButton.addEventListener("click", addToCartHandler);
+    return {
+      
+    category: productInformation.Category, //return product category
+  };
     }
 }
 
 //add to cart button event handler
 async function addToCartHandler(e) {
-    let cartCount = getCartCountFromLocalStorage();
-    cartCount++;
     const product = await findProductById(e.target.dataset.id);
     const backpackBadge = document.getElementById("cart-count");
 
-    addProductToCart(product);
+    addProductToCart(product); 
+    
+    let cartCount = getCartCountFromLocalStorage();
 
-    // Add Cart Button animated
-    this.innerHTML = "Adding, please wait";
+    const alertInstance = new Alert();
+    alertInstance.AlertsDatafetch().then(() => alertInstance.buildAlertElements("item added"));
+    backpackBadge.innerHTML = cartCount;
+    backpackBadge.style.fontSize = "20px";
+
 
     setTimeout(() => {
-      this.innerHTML = "Added To Cart!";
-      backpackBadge.innerHTML = cartCount;
-      backpackBadge.style.fontSize = "20px";
-    }, 2500);
-
-    setTimeout(() => {
-      this.innerHTML = "Add to Cart";
       backpackBadge.style.fontSize = "10px";
-    }, 5000);
+    }, 1000);
     
 }
- 
+
+function checkProductInCart(product, cart){
+    let check = false;
+    cart.forEach(element => {
+      if (element.Id === product.Id){
+        check = true;
+      }
+    });
+    return check;
+}
+
+function returnIndexOfProductInCart(product, cart){
+    for (let index = 0; index < cart.length; index++) {
+      const element = cart[index];
+      if (element.Id === product.Id){
+        return index;
+      }
+      
+    }
+}
 
 function addProductToCart(product) {
     // Get the current cart items from local storage or initialize an empty array
     let cartItems = getLocalStorage("so-cart") || [];
-  
+    let selectedQty = parseInt(document.querySelector("#product-selected-qty").value);
     // Ensure cartItems is an array
     if (!Array.isArray(cartItems)) {
       cartItems = [];
     }
-  
-    // Add the product to the cartItems array
-    cartItems.push(product);
+    let check = checkProductInCart(product, cartItems);
+    // If product already is in cart, add qty by 1, if not, add to cart
+    if (check == true){
+      let index = returnIndexOfProductInCart(product, cartItems);
+      let newCount = parseInt(cartItems[index].Qty) + selectedQty;
+      cartItems[index].Qty = newCount;
+    } else {
+      product.Qty = selectedQty;
+      cartItems.push(product);
+    }
   
     // Store the updated cartItems back in local storage
     setLocalStorage("so-cart", cartItems);
@@ -67,6 +94,7 @@ function renderProductDetails(object) {
     const retailPrice = "$" + object.SuggestedRetailPrice;
     const color = object.Colors.ColorName;
     const description = object.DescriptionHtmlSimple;
+    const selectQty = document.querySelector("#product-selected-qty");
 
     document.querySelector("#productName").textContent = name;
     document.querySelector("#productNameWithoutBrand").textContent = nameWithoutBrand;
@@ -78,6 +106,15 @@ function renderProductDetails(object) {
     document.querySelector("#productColorName").textContent = color;
     document.querySelector("#productDescriptionHtmlSimple").innerHTML = description;
     document.querySelector("#addToCart").setAttribute("data-id", id);
+
+    // Create selection options for qty dropdown menu
+
+    let maxQty = 4; // Allow to modify max qty per item if needed
+
+    for (let index = 1; index <= maxQty; index++) {
+      let option = new Option(`${index}`, index);
+      selectQty.append(option);
+    }
 }
 
 function renderNotFoundMessage(){
