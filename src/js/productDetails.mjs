@@ -14,6 +14,10 @@ export default async function productDetails(productId) {
     } else {
     renderProductDetails(productInformation);
     addButton.addEventListener("click", addToCartHandler);
+    return {
+      
+    category: productInformation.Category, //return product category
+  };
     }
 }
 
