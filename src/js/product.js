@@ -3,7 +3,7 @@ import productDetails from "./productDetails.mjs";
 import { updateBreadcrumb } from "./product-list";
 
 document.addEventListener('DOMContentLoaded', async function () {
-    loadHeaderFooter();
+    //loadHeaderFooter();
     const productId = getParam("product");
 
     // Call productDetails and get the product details including category

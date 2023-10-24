@@ -36,6 +36,10 @@ import {
     });
   
     cartTotal.textContent = `Total: $ ${total.toFixed(2)}`;
+    let checkoutBtn = document.querySelector("#checkoutBtn")
+    checkoutBtn.style.display = "block";
+    checkoutBtn.addEventListener("click", function(){ window. location. href ="/checkout/index.html";});
+
   }
   
   function cartItemTemplate(item) {
@@ -118,3 +122,5 @@ function removeItem() {
   
     return noItemsMessage;
   }
+
+  
