@@ -198,19 +198,22 @@ button {
 
 /* Checkout Form */
 
+form {
+  max-width: 40%;
+  margin: 0 auto;
+}
+
 form label.form-label {
   display: block;
+  margin-top: 0.5rem;
 }
 
 form input {
   display: block;
   width: 95%;
+  height: 44px;
 }
 
-#checkout-form {
-  max-width: 20%;
-  margin: 0 auto;
-}
 #checkout-btn {
   margin: 1rem auto;
 }

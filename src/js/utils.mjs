@@ -1,5 +1,5 @@
 import { doc } from "prettier";
-import { getData } from "./productData.mjs";
+import { getProductsByCategory } from "./externalServices.mjs";
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -115,7 +115,7 @@ async function searchForQuery(resultContainer) {
   searchCategory.addEventListener("input",async e => {
     const value = e.target.value;
     searchCat = value;
-    productsSearchList = await getData(searchCat)
+    productsSearchList = await getProductsByCategory(searchCat)
     renderListWithTemplate(renderResultCard,resultContainer, productsSearchList)
   })
 
