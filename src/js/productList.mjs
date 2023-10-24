@@ -22,7 +22,7 @@ function filterProducts(products, numberOfTents) {
 
 function productCardTemplate(product){
 
-  let discount = `-${substractDiscount(product.SuggestedRetailPrice, product.FinalPrice)}.00`;
+  let discount = `-${substractDiscount(product.SuggestedRetailPrice, product.FinalPrice).toFixed(2)}`;
 
   return `<li class="product-card">
     <a href="/product_pages/index.html?product=${product.Id}">

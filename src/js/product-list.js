@@ -1,8 +1,16 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, searchBar } from "./utils.mjs";
 import productList from "./productList.mjs";
 import { getParam } from "./utils.mjs";
 
 
+document.querySelector(".category-title").textContent = productCategory;
+productList(productCategory, document.querySelector(".product-list"));
+
+async function main() {
+  await loadHeaderFooter();
+  searchBar();
+}
+main();
 
 //The DOMContentLoaded event ensures that the DOM is fully loaded before executing the JavaScript code. 
 document.addEventListener('DOMContentLoaded', async function () { // that way I must to put everything inside it to be sure everything is loaded before counting
@@ -28,4 +36,3 @@ export function updateBreadcrumb(category, count, isProductListPage = true) { //
     breadcrumbElement.textContent = `${category}`; //assign the text to the breadcrumb
   }
 }
-
