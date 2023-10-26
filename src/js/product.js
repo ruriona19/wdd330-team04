@@ -1,19 +1,23 @@
-import { getParam, loadHeaderFooter } from "./utils.mjs";
+import {
+  getParam,
+  loadHeaderFooter,
+  updateBreadcrumb,
+  searchBar,
+} from "./utils.mjs";
 import productDetails from "./productDetails.mjs";
-import { updateBreadcrumb } from "./product-list.js";
 
 const productId = getParam("product");
 
-document.addEventListener('DOMContentLoaded', async function () {
-    //loadHeaderFooter();
-    
+async function main() {
+  await loadHeaderFooter();
+  searchBar();
+}
+main();
 
-    // Call productDetails and get the product details including category
-    const productDetailsResult = await productDetails(productId);
-    
-    
-    // Update breadcrumb with the category
-    updateBreadcrumb(productDetailsResult.category, 0, false);
-    
+document.addEventListener("DOMContentLoaded", async function () {
+  // Call productDetails and get the product details including category
+  const productDetailsResult = await productDetails(productId);
+
+  // Update breadcrumb with the category
+  updateBreadcrumb(productDetailsResult.category, 0, false);
 });
-

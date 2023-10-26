@@ -124,7 +124,6 @@ async function searchForQuery(resultContainer) {
   //that sequence of letters in that order in the name property.
   searchInput.addEventListener("input", async e => {
     const value = e.target.value.toLowerCase();
-    console.log(value);
     searchCat = searchCategory.value;
     let searchedList = document.querySelector(".product-search-list");
     
@@ -174,4 +173,16 @@ function renderResultCard(product) {
   </a>
   <p class="product-search-price">${product.FinalPrice}</p>
 </li>`;
+}
+
+export function updateBreadcrumb(category, count, isProductListPage = true) { //add a boolean to handle the breadcrumb differences
+  const breadcrumbElement = document.getElementById('breadcrumb');
+
+  if (category && isProductListPage) {
+    breadcrumbElement.href = `../product-list/index.html?category=${encodeURIComponent(category)}`;
+    breadcrumbElement.textContent = `${category} > (${count} items)`; //assign the text to the breadcrumb
+  } else {
+    breadcrumbElement.href = `../product-list/index.html?category=${encodeURIComponent(category)}`;
+    breadcrumbElement.textContent = `${category}`; //assign the text to the breadcrumb
+  }
 }
