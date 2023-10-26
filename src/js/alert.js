@@ -17,7 +17,6 @@ class Alert {
     } catch (error) {
       // Step 6: Handle errors by setting alertsData to an empty array
       this.alertsData = [];
-
     }
   }
 
@@ -34,8 +33,7 @@ class Alert {
 
     // Step 10: Loop through each alert and create a <p> element for each in alertsDAta array
     this.alertsData.forEach((alert) => {
-
-      if (alert.type == type){
+      if (alert.type == type) {
         // Step 11: Create a <p> element with specified content and styles for each alert
         const alertMessage = document.createElement("p");
         alertMessage.textContent = alert.message;
@@ -46,12 +44,10 @@ class Alert {
         // Step 12: Append the <p> element to the alert section
         alertSection.appendChild(alertMessage);
 
-        setTimeout(() =>{
+        setTimeout(() => {
           alertSection.removeChild(alertMessage);
         }, 3000);
       }
-      
-
     });
 
     // Step 13: Prepend the alert section to the main element on the index page
