@@ -1,10 +1,12 @@
 import { getParam, loadHeaderFooter } from "./utils.mjs";
 import productDetails from "./productDetails.mjs";
-import { updateBreadcrumb } from "./product-list";
+import { updateBreadcrumb } from "./product-list.js";
+
+const productId = getParam("product");
 
 document.addEventListener('DOMContentLoaded', async function () {
-    loadHeaderFooter();
-    const productId = getParam("product");
+    //loadHeaderFooter();
+    
 
     // Call productDetails and get the product details including category
     const productDetailsResult = await productDetails(productId);

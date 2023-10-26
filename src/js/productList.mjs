@@ -1,10 +1,10 @@
-import {getData} from "./productData.mjs";
+import {getProductsByCategory} from "./externalServices.mjs";
 import { renderListWithTemplate, substractDiscount } from "./utils.mjs";
 
 
 export default async function productList(category, selector, limitNumber = 4){
 
-    let listedProducts = await getData(category) || [];
+    let listedProducts = await getProductsByCategory(category) || [];
 
     let filteredProduct = filterProducts(listedProducts, limitNumber);
 

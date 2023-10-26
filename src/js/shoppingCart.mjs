@@ -36,6 +36,10 @@ import {
     });
   
     cartTotal.textContent = `Total: $ ${total.toFixed(2)}`;
+    let checkoutBtn = document.querySelector("#checkoutBtn")
+    checkoutBtn.style.display = "block";
+    checkoutBtn.addEventListener("click", function(){ window. location. href ="/checkout/index.html";});
+
   }
   
   function cartItemTemplate(item) {
@@ -43,7 +47,7 @@ import {
     const newItem = `<li class="cart-card divider">
     <a href="/product_pages/index.html?product=${item.Id}" class="cart-card__image">
       <img
-        src="${item.Images.PrimaryMedium}"
+        src="${item.Image}"
         alt="${item.Name}"
       />
     </a>
@@ -118,3 +122,5 @@ function removeItem() {
   
     return noItemsMessage;
   }
+
+  

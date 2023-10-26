@@ -192,6 +192,32 @@ button {
   font-size: 10px;
 }
 
+#checkoutBtn {
+  display: none;
+}
+
+/* Checkout Form */
+
+form {
+  max-width: 40%;
+  margin: 0 auto;
+}
+
+form label.form-label {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+form input {
+  display: block;
+  width: 95%;
+  height: 44px;
+}
+
+#checkout-btn {
+  margin: 1rem auto;
+}
+
 /* End cart icon styles */
 
 .mission {
@@ -255,6 +281,7 @@ button {
   text-decoration: none;
   list-style-type: none;
 }
+
 /* End product list card */
 
 .product-detail {
