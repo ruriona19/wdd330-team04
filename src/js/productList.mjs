@@ -28,7 +28,7 @@ function productCardTemplate(product){
     <a href="/product_pages/index.html?product=${product.Id}">
       <picture> 
         <source media="(min-width: 800px)" srcset="${product.Images.PrimaryLarge}">
-        <source media="(min-widht: 600px)" srcset ="${product.Images.PrimaryMedium}">  
+        <source media="(min-width: 600px)" srcset ="${product.Images.PrimaryMedium}">  
         <img src="${product.Images.PrimarySmall}" alt="${product.Name}"/>
       </picture>
       <h3 class="card__brand">${product.Brand.Name}</h3>

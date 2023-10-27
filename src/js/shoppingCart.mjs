@@ -48,7 +48,7 @@ import {
     <a href="/product_pages/index.html?product=${item.Id}" class="cart-card__image">
       <picture>
         <source media="(min-width: 800px)" srcset="${item.Images.PrimaryLarge}">
-        <source media="(min-widht: 600px)" srcset ="${item.Images.PrimaryMedium}">  
+        <source media="(min-width: 600px)" srcset ="${item.Images.PrimaryMedium}">  
         <img src="${item.Images.PrimarySmall}" alt="${item.Name}"/>
       </picture>
     </a>
