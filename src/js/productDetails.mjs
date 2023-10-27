@@ -85,7 +85,7 @@ function addProductToCart(product) {
     setLocalStorage("so-cart", cartItems);
   }
 
-function renderProductDetails(object) {
+export function renderProductDetails(object) {
     const id = object.Id;
     const name = object.Name;
     const nameWithoutBrand = object.NameWithoutBrand;
@@ -141,3 +141,56 @@ function getDiscountPercentage(oldPrice, newPrice) {
   }
 };
 
+
+export async function createQuickView(e){
+  
+  const product = await findProductById(e.target.dataset.id);
+  
+  let modal = document.createElement("div");
+  modal.classList.add("modal");
+  
+   let closeBtn = document.createElement("button");
+  closeBtn.textContent = "X";
+  closeBtn.addEventListener("click", close);
+
+  let overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+  overlay.addEventListener("click", close)
+    
+  modal.appendChild(closeBtn);
+
+  let productSection = document.createElement("section");
+  productSection.insertAdjacentHTML("afterbegin",`<h3 id="productName"></h3>
+  <h2 class="divider" id="productNameWithoutBrand"></h2>
+  <img id="productImage" class="divider" src="" alt="" />
+  <p class="product__description" id="productDescriptionHtmlSimple"></p>
+  <div class="product-price-discount">
+    <p class="product-card__price" id="productFinalPrice"></p>
+    <p class="line-through" id="suggestedRetailPrice"></p>
+  </div>
+  <p class="product__color" id="productColorName"></p>
+  <label class="product__quantity"
+    >Quantity:
+    <select id="product-selected-qty"></select
+  ></label>
+  <div class="product-detail__add">
+    <button id="addToCart" data-id="">Add to Cart</button>
+  </div>
+  <div id="discountFlag"></div>`);
+
+
+  modal.appendChild(productSection);
+
+  document.body.append(modal);
+  document.body.append(overlay);
+
+  renderProductDetails(product);
+  const addButton = document.querySelector("#addToCart");
+  addButton.addEventListener("click", addToCartHandler);
+
+  function close(){
+    modal.classList.add("hidden");
+    modal.innerHTML = "";
+    overlay.classList.add("hidden");
+  }
+}

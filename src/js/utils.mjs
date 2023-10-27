@@ -1,5 +1,7 @@
 import { doc } from "prettier";
-import { getProductsByCategory } from "./externalServices.mjs";
+import { findProductById, getProductsByCategory } from "./externalServices.mjs";
+import { renderProductDetails } from "./productDetails.mjs";
+
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -186,3 +188,4 @@ export function updateBreadcrumb(category, count, isProductListPage = true) { //
     breadcrumbElement.textContent = `${category}`; //assign the text to the breadcrumb
   }
 }
+

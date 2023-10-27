@@ -259,6 +259,54 @@ form input {
   display: block;
 }
 
+.quick-view {
+  font-size: 2.5rem;
+  padding: 0.1rem 0.5rem;
+  text-align: center;
+  align-items: center;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 450px;
+  padding: 1.3rem;
+  min-height: 250px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  z-index: 2;
+  text-align: center;
+}
+
+.modal img {
+  display: block;
+  margin: 0 auto;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+.hidden {
+  display: none;
+}
+
 .card__brand {
   font-size: var(--small-font);
 }
@@ -295,7 +343,7 @@ form input {
   width: 100%;
 }
 
-.product-detail #discountFlag {
+#discountFlag {
   bottom: 0;
   left: 50%;
   -webkit-transform: translate(-50%, 55%);
