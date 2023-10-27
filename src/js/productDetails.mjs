@@ -186,7 +186,11 @@ export async function createQuickView(e){
 
   renderProductDetails(product);
   const addButton = document.querySelector("#addToCart");
-  addButton.addEventListener("click", addToCartHandler);
+  addButton.addEventListener("click", async function() {
+    await addToCartHandler(e);
+    close();
+  });
+
 
   function close(){
     modal.classList.add("hidden");
