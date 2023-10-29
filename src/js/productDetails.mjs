@@ -151,6 +151,7 @@ export async function createQuickView(e){
   
    let closeBtn = document.createElement("button");
   closeBtn.textContent = "X";
+  closeBtn.classList.add("close");
   closeBtn.addEventListener("click", close);
 
   let overlay = document.createElement("div");
