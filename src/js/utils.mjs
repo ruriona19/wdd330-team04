@@ -163,10 +163,10 @@ function renderResultCard(product) {
 
   return `<li class="product-search-card">
   <a href="/product_pages/index.html?product=${product.Id}">
-    <img
-      src="${product.Images.PrimaryMedium}"
-      alt="${product.Name}"
-    />
+    <picture>
+      <source media="(min-width: 400px)" srcset="${product.Images.PrimaryMedium}">
+      <img src="${product.Images.PrimarySmall}" alt="${product.Name}"/>
+  </picture>
   </a>
   <a href="/product_pages/index.html?product=${product.Id}">
     <h2 class="product-search-name">${product.NameWithoutBrand}</h2>

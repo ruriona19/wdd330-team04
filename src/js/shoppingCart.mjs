@@ -46,10 +46,11 @@ import {
     const subtotal = item.FinalPrice * parseInt(item.Qty);
     const newItem = `<li class="cart-card divider">
     <a href="/product_pages/index.html?product=${item.Id}" class="cart-card__image">
-      <img
-        src="${item.Image}"
-        alt="${item.Name}"
-      />
+      <picture>
+        <source media="(min-width: 800px)" srcset="${item.Images.PrimaryLarge}">
+        <source media="(min-width: 600px)" srcset ="${item.Images.PrimaryMedium}">  
+        <img src="${item.Images.PrimarySmall}" alt="${item.Name}"/>
+      </picture>
     </a>
     <a href="/product_pages/index.html?product=${item.Id}">
       <h2 class="card__name">${item.Name}</h2>
