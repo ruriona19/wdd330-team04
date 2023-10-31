@@ -85,27 +85,33 @@ function addProductToCart(product) {
     setLocalStorage("so-cart", cartItems);
   }
 
-export function renderProductDetails(object) {
-    const id = object.Id;
-    const name = object.Name;
-    const nameWithoutBrand = object.NameWithoutBrand;
-    const image = object.Images.PrimaryLarge;
-    const price = "$" + object.FinalPrice;
-    const retailPrice = "$" + object.SuggestedRetailPrice;
-    const color = object.Colors.ColorName;
-    const description = object.DescriptionHtmlSimple;
-    const selectQty = document.querySelector("#product-selected-qty");
 
-    document.querySelector("#productName").textContent = name;
-    document.querySelector("#productNameWithoutBrand").textContent = nameWithoutBrand;
-    document.querySelector("#productImage").setAttribute("src", image);
-    document.querySelector("#productImage").setAttribute("alt",name);
-    document.querySelector("#productFinalPrice").textContent = price;
-    document.querySelector("#suggestedRetailPrice").textContent = retailPrice;
-    document.querySelector("#discountFlag").textContent = getDiscountPercentage(object.SuggestedRetailPrice, object.FinalPrice);
-    document.querySelector("#productColorName").textContent = color;
-    document.querySelector("#productDescriptionHtmlSimple").innerHTML = description;
-    document.querySelector("#addToCart").setAttribute("data-id", id);
+export function renderProductDetails(object) {
+  const id = object.Id;
+  const name = object.Name;
+  const nameWithoutBrand = object.NameWithoutBrand;
+  const imageSrc1 = object.Images.PrimaryExtraLarge;
+  const imageSrc2 = object.Images.PrimaryLarge;
+  const imageSrc3 = object.Images.PrimaryMedium;
+  const price = "$" + object.FinalPrice;
+  const retailPrice = "$" + object.SuggestedRetailPrice;
+  const color = object.Colors.ColorName;
+  const description = object.DescriptionHtmlSimple;
+  const selectQty = document.querySelector("#product-selected-qty");
+
+  document.querySelector("#productName").textContent = name;
+  document.querySelector("#productNameWithoutBrand").textContent = nameWithoutBrand;
+  document.querySelector(".source-1").setAttribute("srcset", imageSrc1);
+  document.querySelector(".source-2").setAttribute("srcset", imageSrc2);
+  document.querySelector("#productImage").setAttribute("src", imageSrc3);
+  document.querySelector("#productImage").setAttribute("alt",name);
+  document.querySelector("#productFinalPrice").textContent = price;
+  document.querySelector("#suggestedRetailPrice").textContent = retailPrice;
+  document.querySelector("#discountFlag").textContent = getDiscountPercentage(object.SuggestedRetailPrice, object.FinalPrice);
+  document.querySelector("#productColorName").textContent = color;
+  document.querySelector("#productDescriptionHtmlSimple").innerHTML = description;
+  document.querySelector("#addToCart").setAttribute("data-id", id);
+
 
     // Create selection options for qty dropdown menu
 
