@@ -36,6 +36,7 @@ function productCardTemplate(product){
       <p class="product-card__price">Sale Price: ${product.FinalPrice}</p>
       <p class="product-card__discount">Discount: ${discount}</p>
       </a>
+      <button class="quick-view" data-id="${product.Id}">&#128065</button>
   </li>`
 }
 

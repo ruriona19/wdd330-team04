@@ -1,6 +1,7 @@
-import { loadHeaderFooter, searchBar, updateBreadcrumb } from "./utils.mjs";
+import { loadHeaderFooter, searchBar, updateBreadcrumb, getParam } from "./utils.mjs";
 import productList from "./productList.mjs";
-import { getParam } from "./utils.mjs";
+import { createQuickView } from "./productDetails.mjs";
+
 
 const productCategory = getParam("category");
 //document.querySelector(".category-title").textContent = productCategory;
@@ -23,6 +24,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   //loadHeaderFooter();
   document.querySelector(".category-title").textContent = productCategory;
+
+   //add quick lookup functionality to the QL Buttons
+   const qvBtns = document.querySelectorAll(".quick-view");
+   qvBtns.forEach((btn) => {
+     btn.addEventListener("click", createQuickView);
+   });
 
   // update the breadcrumb after everything is loaded
   updateBreadcrumb(productCategory, products);
