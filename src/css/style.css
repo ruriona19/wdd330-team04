@@ -199,7 +199,7 @@ button {
 /* Checkout Form */
 
 form {
-  max-width: 40%;
+  max-width: 500px;
   margin: 0 auto;
 }
 
@@ -212,10 +212,30 @@ form input {
   display: block;
   width: 95%;
   height: 44px;
+  font-size: 1rem;
 }
 
 #checkout-btn {
   margin: 1rem auto;
+}
+
+.alert {
+  background-color: #f0a868;
+  border: #f69d3d 4px solid;
+  max-width: 80%;
+  margin: 1rem auto;
+  padding-left: 2rem;
+  position: relative;
+  padding: 0.5rem;
+}
+
+.alert p {
+  display: inline;
+}
+
+#closeX {
+  position: absolute;
+  right: 5%;
 }
 
 /* End cart icon styles */

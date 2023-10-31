@@ -1,6 +1,6 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, alertMessage, removeAlerts, setLocalStorage } from "./utils.mjs";
 import { checkout } from "./externalServices.mjs";
-import Alert from "./alert"; 
+
 
 function formDataToJSON(formElement) {
     const formData = new FormData(formElement),
@@ -51,7 +51,7 @@ const checkoutProcess = {
     // calculate and display the total amount of the items in the cart, and the number of items.
     let cartSubTotal = document.querySelector( this.outputSelector + " #subtotal");
     const amounts = this.list.map((item) => (item.FinalPrice*item.Qty));
-    this.itemTotal = amounts.reduce((sum, item) => sum + item);
+    this.itemTotal = (amounts.reduce((sum, item) => sum + item)).toFixed(2);
     cartSubTotal.textContent = `$${this.itemTotal}`;
     // Calculate total quantities including if item is repeated
     let numberItems = document.querySelector( this.outputSelector + " #number-of-items");
@@ -76,7 +76,7 @@ const checkoutProcess = {
     
     taxElement.textContent = `$${this.tax}`;
     shippingElement.textContent = `$${this.shipping}`;
-    let total = parseFloat(this.itemTotal) + parseFloat(this.tax) + parseFloat(this.shipping);
+    let total = (parseFloat(this.itemTotal) + parseFloat(this.tax) + parseFloat(this.shipping)).toFixed(2);
     this.orderTotal = total;
     totalElement.textContent = `$${total}`;
   },
@@ -93,14 +93,12 @@ const checkoutProcess = {
     try {
       const res = await checkout(json);
       console.log(res);
+      setLocalStorage("so-cart", []);
       location.assign("../checkout/success.html");
     } catch (err) {
+      removeAlerts();
       for(let message in err.message){
-        alert(err.message[message]);
-        //const alertInstance = new Alert();
-        //alertInstance.AlertsDatafetch().then(alertInstance.editAlertMessage("error",err.message[message])).then(alertInstance.buildAlertElements("error"));
-        
-    
+        alertMessage(err.message[message]);
       }
     }
     }

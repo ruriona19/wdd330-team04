@@ -189,3 +189,37 @@ export function updateBreadcrumb(category, count, isProductListPage = true) { //
   }
 }
 
+
+export function alertMessage(message, scroll = true){
+  
+  let main = document.querySelector("main");
+
+  let div = document.createElement("div");
+  div.classList.add("alert");
+
+  div.innerHTML = `<p>${message}</p><span id="closeX">X</span>`;
+
+  div.addEventListener("click", function(e){
+    if (e.target.id == "closeX"){
+      main.removeChild(this);
+    }
+  });
+
+  main.prepend(div);
+
+
+  if (scroll){
+    window.scrollTo(0,0);
+  }
+}
+
+
+export function removeAlerts(){
+  const alerts = document.querySelectorAll(".alert");
+  let main = document.querySelector("main");
+  if (alerts.length > 0){
+    for (let alert of alerts){
+      main.removeChild(alert);
+    }
+  }
+}
