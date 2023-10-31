@@ -1,5 +1,6 @@
 import { getLocalStorage } from "./utils.mjs";
 import { checkout } from "./externalServices.mjs";
+import Alert from "./alert"; 
 
 function formDataToJSON(formElement) {
     const formData = new FormData(formElement),
@@ -92,8 +93,15 @@ const checkoutProcess = {
     try {
       const res = await checkout(json);
       console.log(res);
+      location.assign("../checkout/success.html");
     } catch (err) {
-      console.log(err);
+      for(let message in err.message){
+        alert(err.message[message]);
+        //const alertInstance = new Alert();
+        //alertInstance.AlertsDatafetch().then(alertInstance.editAlertMessage("error",err.message[message])).then(alertInstance.buildAlertElements("error"));
+        
+    
+      }
     }
     }
 

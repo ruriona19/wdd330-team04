@@ -20,6 +20,14 @@ class Alert {
     }
   }
 
+  editAlertMessage(type, message) {
+    this.alertsData.forEach((alert) => {
+      if (alert.type == type) {
+        alert.message = message;
+      }
+    });
+  }
+
   // Step 7: Create HTML elements for each alert and prepend them to the main element
   buildAlertElements(type) {
     // Step 8: Check if there are alerts to display
@@ -46,7 +54,7 @@ class Alert {
 
         setTimeout(() => {
           alertSection.removeChild(alertMessage);
-        }, 3000);
+        }, 5000);
       }
     });
 
