@@ -1,4 +1,4 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, setLocalStorage } from "./utils.mjs";
 
 loadHeaderFooter();
-localStorage.removeItem("so-cart");
+localStorage.setLocalStorage("so-cart", []);
