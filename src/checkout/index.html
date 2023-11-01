@@ -22,16 +22,16 @@
           <fieldset>
             <legend>Shipping</legend>
             <label class="form-label"
-              >First Name<input type="text" name="fname" id="fname" required
+              >First Name<input type="text" name="fname" id="fname" required placeholder="Joe"
             /></label>
             <label class="form-label"
-              >Last Name<input type="text" name="lname" id="lname" required
+              >Last Name<input type="text" name="lname" id="lname" required placeholder="Doe"
             /></label>
             <label class="form-label"
-              >Street<input type="text" name="street" id="street" required
+              >Street<input type="text" name="street" id="street" required placeholder="123 Street 123 N "
             /></label>
             <label class="form-label"
-              >City<input type="text" name="city" id="city" required
+              >City<input type="text" name="city" id="city" required placeholder="Orem"
             /></label>
             <label class="form-label"
               >State<input
@@ -40,6 +40,7 @@
                 id="state"
                 pattern="[A-Z]{2}"
                 required
+                placeholder="UT"
             /></label>
             <label class="form-label"
               >Zip<input
@@ -48,6 +49,7 @@
                 id="zip"
                 pattern="[0-9]{5}"
                 required
+                placeholder="12345"
             /></label>
           </fieldset>
           <fieldset>
@@ -60,18 +62,20 @@
                 minlength="16"
                 pattern="^[0-9]{16}"
                 required
+                placeholder="1234123412341234"
             /></label>
             <label class="form-label"
-              >Expiration<input type="text" name="expiration" id="expiration"
+              >Expiration<input type="text" name="expiration" id="expiration" required placeholder="MM/YY"
             /></label>
-            <label class="form-label"
+            <labe9l class="form-label"
               >Code<input
                 type="number"
                 name="code"
                 id="code"
-                pattern="^[0-9]"
+                pattern="^[0-]"
                 minlength="3"
-                maxlength="3"
+                maxlength="3" required 
+                placeholder="123"
             /></label>
           </fieldset>
           <fieldset class="checkout-summary">

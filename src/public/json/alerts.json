@@ -8,7 +8,7 @@
   {
     "type": "item added",
     "message": "Item has been added to Cart!",
-    "backgroundColor": "darkred",
+    "backgroundColor": "blue",
     "color": "white"
   }
 ]

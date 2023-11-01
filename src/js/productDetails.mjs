@@ -86,7 +86,7 @@ function addProductToCart(product) {
   }
 
 
-export function renderProductDetails(object) {
+export function renderProductDetails(object, quickView = false) {
   const id = object.Id;
   const name = object.Name;
   const nameWithoutBrand = object.NameWithoutBrand;
@@ -101,10 +101,15 @@ export function renderProductDetails(object) {
 
   document.querySelector("#productName").textContent = name;
   document.querySelector("#productNameWithoutBrand").textContent = nameWithoutBrand;
-  document.querySelector(".source-1").setAttribute("srcset", imageSrc1);
-  document.querySelector(".source-2").setAttribute("srcset", imageSrc2);
-  document.querySelector("#productImage").setAttribute("src", imageSrc3);
-  document.querySelector("#productImage").setAttribute("alt",name);
+  if (!quickView){
+    document.querySelector(".source-1").setAttribute("srcset", imageSrc1);
+    document.querySelector(".source-2").setAttribute("srcset", imageSrc2);
+    document.querySelector("#productImage").setAttribute("src", imageSrc3);
+    document.querySelector("#productImage").setAttribute("alt",name);
+  } else {
+    document.querySelector("#productImage").setAttribute("src", imageSrc3);
+    document.querySelector("#productImage").setAttribute("alt",name);
+  }
   document.querySelector("#productFinalPrice").textContent = price;
   document.querySelector("#suggestedRetailPrice").textContent = retailPrice;
   document.querySelector("#discountFlag").textContent = getDiscountPercentage(object.SuggestedRetailPrice, object.FinalPrice);
@@ -191,7 +196,7 @@ export async function createQuickView(e){
   document.body.append(modal);
   document.body.append(overlay);
 
-  renderProductDetails(product);
+  renderProductDetails(product, true);
   const addButton = document.querySelector("#addToCart");
   addButton.addEventListener("click", async function() {
     await addToCartHandler(e);
@@ -200,8 +205,7 @@ export async function createQuickView(e){
 
 
   function close(){
-    modal.classList.add("hidden");
-    modal.innerHTML = "";
-    overlay.classList.add("hidden");
+    document.body.removeChild(modal);
+    document.body.removeChild(overlay);
   }
 }

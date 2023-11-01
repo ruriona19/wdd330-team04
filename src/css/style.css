@@ -199,7 +199,7 @@ button {
 /* Checkout Form */
 
 form {
-  max-width: 40%;
+  max-width: 500px;
   margin: 0 auto;
 }
 
@@ -212,10 +212,30 @@ form input {
   display: block;
   width: 95%;
   height: 44px;
+  font-size: 1rem;
 }
 
 #checkout-btn {
   margin: 1rem auto;
+}
+
+.alert {
+  background-color: #f0a868;
+  border: #f69d3d 4px solid;
+  max-width: 80%;
+  margin: 1rem auto;
+  padding-left: 2rem;
+  position: relative;
+  padding: 0.5rem;
+}
+
+.alert p {
+  display: inline;
+}
+
+#closeX {
+  position: absolute;
+  right: 5%;
 }
 
 /* End cart icon styles */
@@ -299,23 +319,21 @@ form input {
   overflow-y: scroll;
 }
 
-
 .modal section h2 {
   margin: 1rem;
 }
 
-.modal section img, div.product-price-discount {
+.modal section img,
+div.product-price-discount {
   margin: 1rem auto;
 }
 .modal section div.product-price-discount {
   margin: auto;
 }
 
-
-.modal section p#productDescriptionHtmlSimple { 
+.modal section p#productDescriptionHtmlSimple {
   padding: 0.5rem 1.5rem 0.5rem;
 }
-
 
 .modal div.product-detail__add {
   margin: 2rem auto;
@@ -335,11 +353,9 @@ form input {
     overflow-y: scroll;
   }
 
-
-
- .modal section h3{
+  .modal section h3 {
     margin-top: 2.5rem;
-  } 
+  }
   .modal section h2 {
     grid-column: 1/8;
     font-size: 1em;
@@ -347,8 +363,7 @@ form input {
 
   .modal button.close {
     position: relative;
-    
-    
+
     justify-content: center;
   }
 
@@ -356,32 +371,25 @@ form input {
     display: block;
     margin: 0 auto;
     height: 80%;
-    
   }
-
 
   .modal section label {
     margin: auto;
   }
-
-
 
   .modal section #discountFlag {
     display: none;
   }
 }
 
-
 @keyframes blowUp {
   0% {
-
-    transform:scale(0) translate(-50%, -50%);
-    opacity:0;
+    transform: scale(0) translate(-50%, -50%);
+    opacity: 0;
   }
   100% {
-    transform:scale(1) translate(-50%, -50%);
-    opacity:1;
-
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 1;
   }
 }
 
@@ -580,5 +588,3 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
-
-
