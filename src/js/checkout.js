@@ -1,8 +1,11 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter,searchBar } from "./utils.mjs";
 import checkoutProcess from "./checkoutProcess.mjs";
 
-loadHeaderFooter();
-
+async function main(){
+  await loadHeaderFooter();
+  searchBar();
+}
+main();
 checkoutProcess.init("so-cart", ".checkout-summary");
 
 document

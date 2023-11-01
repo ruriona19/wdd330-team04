@@ -102,19 +102,38 @@ export function substractDiscount(retailPrice, finalPrice){
 export function searchBar() {
 
   const resultContainer = document.querySelector(".product-search-list");
+  resultContainer.classList.add("hide");
+  const navBox = document.querySelector(".search-bar-container");
+  const xBox = `<span>&#10060;</span>`;
   //This function will update the list of items based on the category and input entered. 
   searchForQuery(resultContainer,);
-  
-}
+  navBox.insertAdjacentHTML("beforeend",xBox);
+  navBox.querySelector("span").classList.add("close-search-bar","hide");
+  const navBoxClose = document.querySelector(".close-search-bar");
+  if(navBoxClose.classList.contains("hide") && !resultContainer.classList.contains("hide")){
+    navBoxClose.classList.remove("hide");
+  };
+  navBoxClose.addEventListener("click", function(e){
+        resultContainer.classList.add("hide");
+        navBoxClose.classList.add("hide");
+    });
+  };
+    
 
 async function searchForQuery(resultContainer) {
   const searchInput = document.querySelector("#search");
   const searchCategory = document.querySelector("#category-search");
+  
   let searchCat = "tent";
   let productsSearchList = [];
 
   //This event listener changes the rendered list anytime the category is updated. 
   searchCategory.addEventListener("input",async e => {
+    if(resultContainer.classList.contains("hide")){
+      resultContainer.classList.remove("hide");
+    }
+    const navBoxClose = document.querySelector(".close-search-bar");
+    navBoxClose.classList.remove("hide");
     const value = e.target.value;
     searchCat = value;
     productsSearchList = await getProductsByCategory(searchCat)
@@ -190,12 +209,12 @@ export function updateBreadcrumb(category, count, isProductListPage = true) { //
 }
 
 
-export function alertMessage(message, scroll = true){
+export function alertMessage(message, scroll = true, classAttribute = "alert"){
   
   let main = document.querySelector("main");
 
   let div = document.createElement("div");
-  div.classList.add("alert");
+  div.classList.add(classAttribute);
 
   div.innerHTML = `<p>${message}</p><span id="closeX">X</span>`;
 
@@ -222,4 +241,19 @@ export function removeAlerts(){
       main.removeChild(alert);
     }
   }
+}
+
+export function firsTimeVisit(container){ 
+    try {
+      let visit = getLocalStorage("visited");
+      if (visit == null) {
+        alertMessage(`<a href="#">Welcome! We invite you to register and receive special discounts, exclusive items and a chance to win our "mountain peak giveaway" for those who register. Click Here to register!</a>`,true,"first-visit-show")
+        visit = "yes";
+        setLocalStorage("visited", visit);
+      } else {
+        container.innerHTML = "";
+      }
+    } catch (error) {
+      alert(error.message);
+    }
 }
