@@ -237,7 +237,18 @@ form input {
   position: absolute;
   right: 5%;
 }
-
+/* NewsLetter Style*/
+.newsletterbox {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1px black solid;
+  margin: auto;
+  margin-bottom: 20px;
+  width: 500px;
+}
 /* End cart icon styles */
 
 .mission {
