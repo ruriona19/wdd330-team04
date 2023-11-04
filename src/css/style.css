@@ -570,6 +570,53 @@ div.product-price-discount {
   font-size: 1rem;
 }
 
+#productColorName {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+#productColorName [type=radio]{
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+#productColorName [type=radio] + img {
+  cursor: pointer;
+}
+
+[type=radio]:checked + img {
+  outline: 2px solid black;
+  box-shadow: 0px 0px 37px 0px #000000;
+}
+
+#productColorName label {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.color-img {
+  max-width: 80px;
+  object-fit: fill;
+  border-radius: 15%;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 400px){
+  #productColorName {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #productColorName label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+  }
+  
+}
+
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
