@@ -2,23 +2,30 @@ import {getProductsByCategory} from "./externalServices.mjs";
 import { renderListWithTemplate, substractDiscount } from "./utils.mjs";
 
 
-export default async function productList(category, selector, limitNumber = 4){
+export default async function productList(category, selector, sortedProductsBy = "name"){
 
     let listedProducts = await getProductsByCategory(category) || [];
+    let sortedProducts = [];
 
-    let filteredProduct = filterProducts(listedProducts, limitNumber);
-
+    if(sortedProductsBy == "name"){
+      sortedProducts = (listedProducts || []).sort((a, b) =>
+        a.Name.localeCompare(b.Name)
+      );
+    }
+    else if(sortedProductsBy == "price"){
+      sortedProducts = (listedProducts || []).sort((a, b) =>
+        (a.FinalPrice < b.FinalPrice) - (a.FinalPrice > b.FinalPrice)
+      );
+    }
+    
     const filteredProductsCat = listedProducts.filter(product => product.Category === category); //filter by category
     //this way I can count how much products per category ex tents -> 14
 
-    renderListWithTemplate(productCardTemplate, selector, filteredProduct);
+    renderListWithTemplate(productCardTemplate, selector, sortedProducts);
     
     return filteredProductsCat.length
 }
 
-function filterProducts(products, numberOfTents) {
-    return products.slice(0, numberOfTents);
-}
 
 function productCardTemplate(product){
 

@@ -38,3 +38,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   // update the breadcrumb after everything is loaded
   updateBreadcrumb(productCategory, products);
 });
+
+const sorBySelect = document.querySelector("#sort");
+
+//This event listener sort the list of product according the value selected in Sort By select element
+sorBySelect.addEventListener("input", async (e) => {
+  const sortedProductsBy = e.target.value;
+  await productList(
+    productCategory,
+    document.querySelector(".product-list"),
+    sortedProductsBy
+  );
+});
