@@ -78,6 +78,23 @@ header {
   padding: 0.5rem 0.5rem;
 }
 
+.product-search-list.hide {
+  display: none;
+}
+
+.close-search-bar {
+  background-color: #a5a5a5;
+  display: block;
+  margin: 1rem 15rem;
+  padding: 1rem, 1rem;
+  text-align: center;
+
+}
+
+.close-search-bar.hide {
+  display: none;
+}
+
 .product-search-card {
   display: grid;
   grid-template-columns: 100px 1fr 150px;
@@ -233,11 +250,31 @@ form input {
   display: inline;
 }
 
+
 #closeX {
   position: absolute;
   right: 5%;
 }
 
+.first-visit-show {
+  background-color: #40a0cd;
+  border: #e5e5e5 4px solid;
+  max-width: 90%;
+  margin: 1rem auto;
+  padding-left: 2rem;
+  position: relative;
+  padding: 0.5rem;
+}
+
+.first-visit-show p {
+  display: inline;
+  padding: 1rem 5rem;
+}
+
+.first-visit-show p a {
+  text-decoration: none;
+  color: white;
+}
 /* End cart icon styles */
 
 .mission {
