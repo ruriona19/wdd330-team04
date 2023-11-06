@@ -10,5 +10,11 @@
     "message": "Item has been added to Cart!",
     "backgroundColor": "blue",
     "color": "white"
+  },
+  {
+    "type": "color not selected",
+    "message": "No color has been selected, please select one",
+    "backgroundColor": "darkred",
+    "color": "white"
   }
 ]
