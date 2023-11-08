@@ -88,7 +88,6 @@ header {
   margin: 1rem 15rem;
   padding: 1rem, 1rem;
   text-align: center;
-
 }
 
 .close-search-bar.hide {
@@ -163,6 +162,36 @@ header {
 .category-title {
   text-transform: capitalize;
 }
+
+/* Table orders */
+
+table {
+  border: thin solid black;
+  margin: 2rem auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th.table-title {
+  padding: 10px 2px;
+  background-color: #c2ced6;
+  color: black;
+  letter-spacing: 1px;
+  font-size: 1.2rem;
+  border: thin solid black;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 5px 0px;
+  border: thin solid black;
+}
+
+tr:nth-child(odd) {
+  background-color: #82c6ee9d;
+}
+
 /* utility classes */
 .highlight {
   color: var(--tertiary-color);
@@ -212,6 +241,21 @@ button {
 #checkoutBtn {
   display: none;
 }
+/* Login Form */
+
+form[name="login-form"] {
+  margin: 5rem auto;
+}
+
+input[name="login-btn"] {
+  text-align: center;
+  margin: 1rem auto;
+  max-width: 200px;
+}
+
+#login-btn {
+  margin: 1rem auto;
+}
 
 /* Checkout Form */
 
@@ -249,7 +293,6 @@ form input {
 .alert p {
   display: inline;
 }
-
 
 #closeX {
   position: absolute;
@@ -612,17 +655,17 @@ div.product-price-discount {
   grid-template-columns: repeat(4, 1fr);
 }
 
-#productColorName [type=radio]{
+#productColorName [type="radio"] {
   opacity: 0;
   height: 0;
   width: 0;
 }
 
-#productColorName [type=radio] + img {
+#productColorName [type="radio"] + img {
   cursor: pointer;
 }
 
-[type=radio]:checked + img {
+[type="radio"]:checked + img {
   outline: 2px solid black;
   box-shadow: 0px 0px 37px 0px #000000;
 }
@@ -639,7 +682,7 @@ div.product-price-discount {
   margin-top: 5px;
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 400px) {
   #productColorName {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -648,11 +691,9 @@ div.product-price-discount {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
   }
-  
 }
-
 
 @media screen and (min-width: 500px) {
   body {

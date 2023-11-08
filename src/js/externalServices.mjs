@@ -1,3 +1,5 @@
+import { setLocalStorage } from "./utils.mjs";
+
 async function convertToJson(res) {
   const jsonResponse = await res.json();
   if (res.ok) {
@@ -30,4 +32,27 @@ export async function checkout(payload) {
     body: JSON.stringify(payload),
   };
   return await fetch(baseURL + "checkout/", options).then(convertToJson);
+}
+
+export async function loginRequest(creds){
+  console.log(creds);
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(creds),
+  };
+  const response = await fetch(baseURL + "login", options).then(convertToJson);
+  return response.accessToken;
+}
+
+export async function getOrders(token){
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  };
+  return await fetch(baseURL + "orders", options).then(convertToJson);
 }

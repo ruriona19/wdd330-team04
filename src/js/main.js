@@ -1,4 +1,4 @@
-import { loadHeaderFooter, searchBar, firsTimeVisit  } from "./utils.mjs";
+import { loadHeaderFooter, searchBar, firsTimeVisit } from "./utils.mjs";
 import Alert from "./alert.js";
 
 const alertInstance = new Alert();

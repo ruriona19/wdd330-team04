@@ -1,7 +1,7 @@
-import { loadHeaderFooter,searchBar } from "./utils.mjs";
+import { loadHeaderFooter, searchBar } from "./utils.mjs";
 import checkoutProcess from "./checkoutProcess.mjs";
 
-async function main(){
+async function main() {
   await loadHeaderFooter();
   searchBar();
 }
