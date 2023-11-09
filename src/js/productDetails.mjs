@@ -264,10 +264,16 @@ export async function createQuickView(e) {
 
 }
 
-export function getSuggestions(category1 = "tents", category2 = "sleeping-bags", category3 ="backpacks", category4 = "hammocks"){
+export async function getSuggestions(category1 = "tents", category2 = "sleeping-bags", category3 ="backpacks", category4 = "hammocks"){
   const categories = [category1, category2, category3, category4];
-  console.log(categories);
+  let listedProducts =  await Promise.all(categories.map(category => getProductsByCategory(category)));
+  //let filteredProduct = filterProducts(listedProducts, limitNumber);
+  console.log(listedProducts);
+
 }
+
+  // renderListWithTemplate(productCardTemplate, selector, filteredProduct);
+
 
 function renderSuggestions(){
 
