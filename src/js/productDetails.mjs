@@ -1,4 +1,4 @@
-import { findProductById } from "./externalServices.mjs";
+import { findProductById, getProductsByCategory } from "./externalServices.mjs";
 import {
   setLocalStorage,
   getLocalStorage,
@@ -261,4 +261,14 @@ export async function createQuickView(e) {
     document.body.removeChild(modal);
     document.body.removeChild(overlay);
   }
+
+}
+
+export function getSuggestions(category1 = "tents", category2 = "sleeping-bags", category3 ="backpacks", category4 = "hammocks"){
+  const categories = [category1, category2, category3, category4];
+  console.log(categories);
+}
+
+function renderSuggestions(){
+
 }
