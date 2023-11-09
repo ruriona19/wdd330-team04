@@ -3,8 +3,10 @@ import {
   setLocalStorage,
   getLocalStorage,
   getCartCountFromLocalStorage,
+  renderListWithTemplate,
 } from "./utils.mjs";
 import Alert from "./alert.js";
+import { productCardTemplate } from "./productList.mjs";
 
 const addButton = document.querySelector("#addToCart");
 
@@ -264,17 +266,18 @@ export async function createQuickView(e) {
 
 }
 
-export async function getSuggestions(category1 = "tents", category2 = "sleeping-bags", category3 ="backpacks", category4 = "hammocks"){
+async function getSuggestions(category1 = "tents", category2 = "sleeping-bags", category3 ="backpacks", category4 = "hammocks"){
   const categories = [category1, category2, category3, category4];
-  let listedProducts =  await Promise.all(categories.map(category => getProductsByCategory(category)));
-  //let filteredProduct = filterProducts(listedProducts, limitNumber);
-  console.log(listedProducts);
+  let listedProductArrays =  await Promise.all(categories.map(category => getProductsByCategory(category)));
+  let listedProducts = listedProductArrays.flat(1)
+  let shuffled = listedProducts.sort(() => 0.5 - Math.random());
+  let filteredProduct = shuffled.slice(0,3);
+  return filteredProduct;
 
 }
 
-  // renderListWithTemplate(productCardTemplate, selector, filteredProduct);
+export async function renderSuggestions(selector){
 
-
-function renderSuggestions(){
+  renderListWithTemplate(productCardTemplate, selector, await getSuggestions());
 
 }
