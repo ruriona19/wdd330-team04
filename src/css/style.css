@@ -682,6 +682,54 @@ div.product-price-discount {
   margin-top: 5px;
 }
 
+/*  PRODUCT CAROUSEL */
+
+.picture-container {
+  position: relative;
+}
+.picture-container > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slide {
+  display: none;
+}
+
+.slide.active {
+  display: block;
+}
+
+.carousel-btn {
+  position: absolute;
+  background: none;
+  font-size: 4rem;
+  color: rgba(0, 0, 0, 0.5);
+  bottom: 2%;
+  cursor: pointer;
+  padding: 0px 0.75rem;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.carousel-btn:hover,
+.carousel-btn:focus {
+  color: black;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn.prev {
+  left: 1px;
+}
+
+.carousel-btn.next {
+  right: 1px;
+}
+
+picture > img {
+  display: block;
+}
+
 @media screen and (max-width: 400px) {
   #productColorName {
     grid-template-columns: repeat(2, 1fr);
