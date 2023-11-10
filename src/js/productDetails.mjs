@@ -4,6 +4,7 @@ import {
   getLocalStorage,
   getCartCountFromLocalStorage,
   renderListWithTemplate,
+  firsTimeVisit,
 } from "./utils.mjs";
 import Alert from "./alert.js";
 import { productCardTemplate } from "./productList.mjs";
@@ -282,7 +283,8 @@ async function getSuggestions(
   category1 = "tents",
   category2 = "sleeping-bags",
   category3 = "backpacks",
-  category4 = "hammocks"
+  category4 = "hammocks",
+  productId
 ) {
   const categories = [category1, category2, category3, category4];
   let listedProductArrays = await Promise.all(
@@ -291,9 +293,14 @@ async function getSuggestions(
   let listedProducts = listedProductArrays.flat(1);
   let shuffled = listedProducts.sort(() => 0.5 - Math.random());
   let filteredProduct = shuffled.slice(0, 3);
+  filteredProduct.forEach((product) => {
+    if (product == productId){
+      product = shuffled[5];
+    }
+  });
   return filteredProduct;
 }
 
-export async function renderSuggestions(selector) {
-  renderListWithTemplate(productCardTemplate, selector, await getSuggestions());
+export async function renderSuggestions(selector, renderedProductId) {
+  renderListWithTemplate(productCardTemplate, selector, await getSuggestions(renderedProductId));
 }
