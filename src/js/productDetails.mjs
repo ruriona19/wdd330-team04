@@ -22,8 +22,7 @@ export default async function productDetails(productId) {
   }
 }
 
-
-function removeColorsFromProduct(product, wantedColor){
+function removeColorsFromProduct(product, wantedColor) {
   // Get Colors array and remove all expect for wanted color
   const colors = product.Colors;
   const userColor = colors.filter((color) => color.ColorName == wantedColor);
@@ -37,14 +36,14 @@ async function addToCartHandler(e) {
   try {
     //Leave only color chose by user
     let userColor = document.querySelector("input[type = radio]:checked").value;
-    removeColorsFromProduct(product, userColor)
+    removeColorsFromProduct(product, userColor);
 
     addProductToCart(product);
 
     let cartCount = getCartCountFromLocalStorage();
 
     const alertInstance = new Alert();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     alertInstance
       .AlertsDatafetch()
       .then(() => alertInstance.buildAlertElements("item added"));
@@ -56,7 +55,7 @@ async function addToCartHandler(e) {
     }, 1000);
   } catch (error) {
     const alertInstance = new Alert();
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     alertInstance
       .AlertsDatafetch()
       .then(() => alertInstance.buildAlertElements("color not selected"));
@@ -66,7 +65,10 @@ async function addToCartHandler(e) {
 function checkProductInCart(product, cart) {
   let check = false;
   cart.forEach((element) => {
-    if (element.Id === product.Id && element.Colors[0].ColorName == product.Colors[0].ColorName) {
+    if (
+      element.Id === product.Id &&
+      element.Colors[0].ColorName == product.Colors[0].ColorName
+    ) {
       check = true;
     }
   });
@@ -76,7 +78,10 @@ function checkProductInCart(product, cart) {
 function returnIndexOfProductInCart(product, cart) {
   for (let index = 0; index < cart.length; index++) {
     const element = cart[index];
-    if (element.Id === product.Id && element.Colors[0].ColorName == product.Colors[0].ColorName) {
+    if (
+      element.Id === product.Id &&
+      element.Colors[0].ColorName == product.Colors[0].ColorName
+    ) {
       return index;
     }
   }
@@ -119,11 +124,16 @@ export function renderProductDetails(object, quickView = false) {
   const colors = object.Colors;
   const description = object.DescriptionHtmlSimple;
   const selectQty = document.querySelector("#product-selected-qty");
+  const imagesContainer = document.querySelector(".picture-container");
 
   document.querySelector("#productName").textContent = name;
   document.querySelector("#productNameWithoutBrand").textContent =
     nameWithoutBrand;
   if (!quickView) {
+    if (object.Images.ExtraImages != null) {
+      loadImageCarousel(object.Images.ExtraImages, imagesContainer);
+      slideMovingFunctionality();
+    }
     document.querySelector(".source-1").setAttribute("srcset", imageSrc1);
     document.querySelector(".source-2").setAttribute("srcset", imageSrc2);
     document.querySelector("#productImage").setAttribute("src", imageSrc3);
@@ -261,4 +271,82 @@ export async function createQuickView(e) {
     document.body.removeChild(modal);
     document.body.removeChild(overlay);
   }
+}
+
+function loadImageCarousel(extraImages, selector) {
+  //Empty parent container
+  //selector.innerHTML = "";
+
+  // Setup previous and next btns
+  let btnPrev = document.createElement("button");
+  let btnNext = document.createElement("button");
+  btnPrev.classList.add("carousel-btn");
+  btnPrev.classList.add("prev");
+  btnPrev.setAttribute("data-button", "prev");
+  btnPrev.innerHTML = "&#8249;";
+
+  btnNext.classList.add("carousel-btn");
+  btnNext.classList.add("next");
+  btnNext.innerHTML = "&#8250;";
+  btnNext.setAttribute("data-button", "next");
+
+  //Creation of ul as container for pictures
+  let ul = document.createElement("ul");
+  ul.setAttribute("data-slides", "");
+
+  let li = document.createElement("li");
+  let pictureElement = document.querySelector(".original-picture");
+  li.classList.add("slide");
+  li.classList.add("active");
+  li.appendChild(pictureElement);
+  ul.appendChild(li);
+
+  for (let i = 0; i < extraImages.length; i++) {
+    const imageSrc = extraImages[i].Src;
+    const imageAlt = extraImages[i].Title;
+
+    let slide = document.createElement("li");
+    slide.classList.add("slide");
+
+/*     // Set first image as active
+    if (i == 0) {
+      slide.classList.add("active");
+    } */
+
+    let img = document.createElement("img");
+    img.setAttribute("src", imageSrc);
+    img.setAttribute("alt", imageAlt);
+
+    slide.appendChild(img);
+    ul.appendChild(slide);
+  }
+
+  // Append all children to parent element
+  selector.appendChild(ul);
+  selector.appendChild(btnPrev);
+  selector.appendChild(btnNext);
+}
+
+function slideMovingFunctionality() {
+  const buttons = document.querySelectorAll(".carousel-btn");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const offset = button.dataset.button === "next" ? 1 : -1;
+      const slides = button
+        .closest(".picture-container")
+        .querySelector("[data-slides]");
+
+      const activeSlide = slides.querySelector(".active");
+      let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+      if (newIndex < 0) {
+        newIndex = slides.children.length - 1;
+      }
+      if (newIndex >= slides.children.length) {
+        newIndex = 0;
+      }
+
+      activeSlide.classList.remove("active");
+      slides.children[newIndex].classList.add("active");
+    });
+  });
 }

@@ -40,11 +40,13 @@
       <section class="product-detail">
         <h3 id="productName"></h3>
         <h2 class="divider" id="productNameWithoutBrand"></h2>
-        <picture>
-          <source class="source-1" media="(min-width: 400px)" srcset="" />
-          <source class="source-2" media="(min-width: 20px)" srcset="" />
-          <img id="productImage" class="divider" src="" alt="" />
-        </picture>
+        <div class="picture-container">
+          <picture class="original-picture">
+            <source class="source-1" media="(min-width: 400px)" srcset="" />
+            <source class="source-2" media="(min-width: 20px)" srcset="" />
+            <img id="productImage" class="divider" src="" alt="" />
+          </picture>
+        </div>
         <p class="product__description" id="productDescriptionHtmlSimple"></p>
         <div class="product-price-discount">
           <p class="product-card__price" id="productFinalPrice"></p>
