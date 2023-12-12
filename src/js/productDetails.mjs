@@ -126,6 +126,8 @@ export function renderProductDetails(object, quickView = false) {
   const retailPrice = "$" + object.SuggestedRetailPrice;
   const colors = object.Colors;
   const description = object.DescriptionHtmlSimple;
+  const selectQty = document.querySelector("#product-selected-qty");
+  const imagesContainer = document.querySelector(".picture-container");
 
   let parent = document.querySelector("[data-product-info]");
 
@@ -137,10 +139,14 @@ export function renderProductDetails(object, quickView = false) {
   parent.querySelector("#productNameWithoutBrand").textContent =
     nameWithoutBrand;
   if (!quickView) {
-    parent.querySelector(".source-1").setAttribute("srcset", imageSrc1);
-    parent.querySelector(".source-2").setAttribute("srcset", imageSrc2);
-    parent.querySelector("#productImage").setAttribute("src", imageSrc3);
-    parent.querySelector("#productImage").setAttribute("alt", name);
+    if (object.Images.ExtraImages != null) {
+      loadImageCarousel(object.Images.ExtraImages, imagesContainer);
+      slideMovingFunctionality();
+    }
+    document.querySelector(".source-1").setAttribute("srcset", imageSrc1);
+    document.querySelector(".source-2").setAttribute("srcset", imageSrc2);
+    document.querySelector("#productImage").setAttribute("src", imageSrc3);
+    document.querySelector("#productImage").setAttribute("alt", name);
   } else {
     parent.querySelector("#productImage").setAttribute("src", imageSrc3);
     parent.querySelector("#productImage").setAttribute("alt", name);
@@ -303,4 +309,81 @@ async function getSuggestions(
 
 export async function renderSuggestions(selector, renderedProductId) {
   renderListWithTemplate(productCardTemplate, selector, await getSuggestions(renderedProductId));
+
+function loadImageCarousel(extraImages, selector) {
+  //Empty parent container
+  //selector.innerHTML = "";
+
+  // Setup previous and next btns
+  let btnPrev = document.createElement("button");
+  let btnNext = document.createElement("button");
+  btnPrev.classList.add("carousel-btn");
+  btnPrev.classList.add("prev");
+  btnPrev.setAttribute("data-button", "prev");
+  btnPrev.innerHTML = "&#8249;";
+
+  btnNext.classList.add("carousel-btn");
+  btnNext.classList.add("next");
+  btnNext.innerHTML = "&#8250;";
+  btnNext.setAttribute("data-button", "next");
+
+  //Creation of ul as container for pictures
+  let ul = document.createElement("ul");
+  ul.setAttribute("data-slides", "");
+
+  let li = document.createElement("li");
+  let pictureElement = document.querySelector(".original-picture");
+  li.classList.add("slide");
+  li.classList.add("active");
+  li.appendChild(pictureElement);
+  ul.appendChild(li);
+
+  for (let i = 0; i < extraImages.length; i++) {
+    const imageSrc = extraImages[i].Src;
+    const imageAlt = extraImages[i].Title;
+
+    let slide = document.createElement("li");
+    slide.classList.add("slide");
+
+/*     // Set first image as active
+    if (i == 0) {
+      slide.classList.add("active");
+    } */
+
+    let img = document.createElement("img");
+    img.setAttribute("src", imageSrc);
+    img.setAttribute("alt", imageAlt);
+
+    slide.appendChild(img);
+    ul.appendChild(slide);
+  }
+
+  // Append all children to parent element
+  selector.appendChild(ul);
+  selector.appendChild(btnPrev);
+  selector.appendChild(btnNext);
+}
+
+function slideMovingFunctionality() {
+  const buttons = document.querySelectorAll(".carousel-btn");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const offset = button.dataset.button === "next" ? 1 : -1;
+      const slides = button
+        .closest(".picture-container")
+        .querySelector("[data-slides]");
+
+      const activeSlide = slides.querySelector(".active");
+      let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+      if (newIndex < 0) {
+        newIndex = slides.children.length - 1;
+      }
+      if (newIndex >= slides.children.length) {
+        newIndex = 0;
+      }
+
+      activeSlide.classList.remove("active");
+      slides.children[newIndex].classList.add("active");
+    });
+  });
 }
