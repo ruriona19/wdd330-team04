@@ -126,7 +126,7 @@ export function renderProductDetails(object, quickView = false) {
   const retailPrice = "$" + object.SuggestedRetailPrice;
   const colors = object.Colors;
   const description = object.DescriptionHtmlSimple;
-  const selectQty = document.querySelector("#product-selected-qty");
+  let selectQty = document.querySelector("#product-selected-qty");
   const imagesContainer = document.querySelector(".picture-container");
 
   let parent = document.querySelector("[data-product-info]");
@@ -166,7 +166,7 @@ export function renderProductDetails(object, quickView = false) {
   // Create selection options for qty dropdown menu
 
   let maxQty = 4; // Allow to modify max qty per item if needed
-  const selectQty = parent.querySelector("#product-selected-qty");
+  selectQty = parent.querySelector("#product-selected-qty");
 
   for (let index = 1; index <= maxQty; index++) {
     let option = new Option(`${index}`, index);
@@ -309,6 +309,7 @@ async function getSuggestions(
 
 export async function renderSuggestions(selector, renderedProductId) {
   renderListWithTemplate(productCardTemplate, selector, await getSuggestions(renderedProductId));
+}
 
 function loadImageCarousel(extraImages, selector) {
   //Empty parent container
