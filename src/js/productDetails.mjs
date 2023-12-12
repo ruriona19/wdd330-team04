@@ -1,10 +1,13 @@
-import { findProductById } from "./externalServices.mjs";
+import { findProductById, getProductsByCategory } from "./externalServices.mjs";
 import {
   setLocalStorage,
   getLocalStorage,
   getCartCountFromLocalStorage,
+  renderListWithTemplate,
+  firsTimeVisit,
 } from "./utils.mjs";
 import Alert from "./alert.js";
+import { productCardTemplate } from "./productList.mjs";
 
 const addButton = document.querySelector("#addToCart");
 
@@ -126,8 +129,14 @@ export function renderProductDetails(object, quickView = false) {
   const selectQty = document.querySelector("#product-selected-qty");
   const imagesContainer = document.querySelector(".picture-container");
 
-  document.querySelector("#productName").textContent = name;
-  document.querySelector("#productNameWithoutBrand").textContent =
+  let parent = document.querySelector("[data-product-info]");
+
+  if (quickView){
+    parent = document.querySelector("[data-modal]");
+  }
+
+  parent.querySelector("#productName").textContent = name;
+  parent.querySelector("#productNameWithoutBrand").textContent =
     nameWithoutBrand;
   if (!quickView) {
     if (object.Images.ExtraImages != null) {
@@ -139,24 +148,25 @@ export function renderProductDetails(object, quickView = false) {
     document.querySelector("#productImage").setAttribute("src", imageSrc3);
     document.querySelector("#productImage").setAttribute("alt", name);
   } else {
-    document.querySelector("#productImage").setAttribute("src", imageSrc3);
-    document.querySelector("#productImage").setAttribute("alt", name);
+    parent.querySelector("#productImage").setAttribute("src", imageSrc3);
+    parent.querySelector("#productImage").setAttribute("alt", name);
   }
-  document.querySelector("#productFinalPrice").textContent = price;
-  document.querySelector("#suggestedRetailPrice").textContent = retailPrice;
-  document.querySelector("#discountFlag").textContent = getDiscountPercentage(
+  parent.querySelector("#productFinalPrice").textContent = price;
+  parent.querySelector("#suggestedRetailPrice").textContent = retailPrice;
+  parent.querySelector("#discountFlag").textContent = getDiscountPercentage(
     object.SuggestedRetailPrice,
     object.FinalPrice
   );
-  let productDiv = document.querySelector("#productColorName");
+  let productDiv = parent.querySelector("#productColorName");
   renderColorsOption(colors, productDiv);
-  document.querySelector("#productDescriptionHtmlSimple").innerHTML =
+  parent.querySelector("#productDescriptionHtmlSimple").innerHTML =
     description;
-  document.querySelector("#addToCart").setAttribute("data-id", id);
+    parent.querySelector("#addToCart").setAttribute("data-id", id);
 
   // Create selection options for qty dropdown menu
 
   let maxQty = 4; // Allow to modify max qty per item if needed
+  const selectQty = parent.querySelector("#product-selected-qty");
 
   for (let index = 1; index <= maxQty; index++) {
     let option = new Option(`${index}`, index);
@@ -186,7 +196,7 @@ function renderColorsOption(colors, selector) {
     selector.appendChild(label);
   }
   // Make first color default selected
-  document.querySelectorAll(`input[name="color-option"]`)[0].checked = true;
+  selector.querySelectorAll(`input[name="color-option"]`)[0].checked = true;
 }
 
 function renderNotFoundMessage() {
@@ -222,6 +232,7 @@ export async function createQuickView(e) {
   let modal = document.createElement("div");
   modal.classList.add("modal");
 
+
   let closeBtn = document.createElement("button");
   closeBtn.textContent = "X";
   closeBtn.classList.add("close");
@@ -234,6 +245,7 @@ export async function createQuickView(e) {
   modal.appendChild(closeBtn);
 
   let productSection = document.createElement("section");
+  productSection.setAttribute("data-modal", "");
   productSection.insertAdjacentHTML(
     "afterbegin",
     `<h3 id="productName"></h3>
@@ -261,7 +273,7 @@ export async function createQuickView(e) {
   document.body.append(overlay);
 
   renderProductDetails(product, true);
-  const addButton = document.querySelector("#addToCart");
+  const addButton = document.querySelector("[data-modal]").querySelector("#addToCart");
   addButton.addEventListener("click", async function () {
     await addToCartHandler(e);
     close();
@@ -272,6 +284,31 @@ export async function createQuickView(e) {
     document.body.removeChild(overlay);
   }
 }
+
+async function getSuggestions(
+  category1 = "tents",
+  category2 = "sleeping-bags",
+  category3 = "backpacks",
+  category4 = "hammocks",
+  productId
+) {
+  const categories = [category1, category2, category3, category4];
+  let listedProductArrays = await Promise.all(
+    categories.map((category) => getProductsByCategory(category))
+  );
+  let listedProducts = listedProductArrays.flat(1);
+  let shuffled = listedProducts.sort(() => 0.5 - Math.random());
+  let filteredProduct = shuffled.slice(0, 3);
+  filteredProduct.forEach((product) => {
+    if (product == productId){
+      product = shuffled[5];
+    }
+  });
+  return filteredProduct;
+}
+
+export async function renderSuggestions(selector, renderedProductId) {
+  renderListWithTemplate(productCardTemplate, selector, await getSuggestions(renderedProductId));
 
 function loadImageCarousel(extraImages, selector) {
   //Empty parent container

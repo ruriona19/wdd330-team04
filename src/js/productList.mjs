@@ -27,7 +27,7 @@ export default async function productList(category, selector, sortedProductsBy =
 }
 
 
-function productCardTemplate(product){
+export function productCardTemplate(product){
 
   let discount = `-${substractDiscount(product.SuggestedRetailPrice, product.FinalPrice).toFixed(2)}`;
 
